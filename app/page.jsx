@@ -3,6 +3,8 @@
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
+import portrait from '@/public/portrait.png';
 import {
   ArrowDown,
   ArrowUpRight,
@@ -74,13 +76,17 @@ function Hero({ lang }) {
         <Reveal delay={0.2}>
           <div className="relative mx-auto w-full max-w-sm">
             <div className="group relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.01]">
-              <div className="absolute inset-0 flex flex-col items-center justify-center gap-4 text-muted">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full border border-white/10 bg-white/[0.03]">
-                  <User size={34} strokeWidth={1.25} />
-                </div>
-                <span className="text-xs uppercase tracking-[0.25em]">{pick(about.portraitNote, lang)}</span>
-              </div>
-              <div className="absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/[0.07] to-transparent transition-transform duration-1000 ease-apple group-hover:translate-x-[120%]" />
+              <Image
+                src={portrait}
+                alt={pick(about.name, lang)}
+                fill
+                priority
+                sizes="(max-width: 640px) 90vw, 384px"
+                className="object-cover object-top transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
+              />
+              {/* Bottom scrim so the name plate stays legible */}
+              <div className="absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t from-ink/85 via-ink/30 to-transparent" />
+              <div className="absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/[0.10] to-transparent transition-transform duration-1000 ease-apple group-hover:translate-x-[120%]" />
               <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/[0.06] bg-ink/50 px-4 py-3 backdrop-blur-md">
                 <p className="text-sm font-medium text-chalk">{pick(about.name, lang)}</p>
                 <p className="text-xs text-muted">{lang === 'en' ? 'Brand Lead · Strategist' : 'Brand Lead · Strategis'}</p>
