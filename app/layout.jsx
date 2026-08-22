@@ -4,14 +4,14 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'William Pradana Putra — Brand Lead & Business Strategist',
+  title: 'William Pradana Putra — Marketing Manager',
   description:
-    'Bridging creative philosophy, system architecture, and sustainable net profit. Brand Lead, strategist, and builder of resilient business ecosystems.',
+    'Marketing Manager building brands people feel and growth the numbers can prove — brand, campaigns, and data-driven growth across Meta, TikTok, and marketplaces.',
   metadataBase: new URL('https://williampradana.example'),
   openGraph: {
-    title: 'William Pradana Putra — Brand Lead & Business Strategist',
+    title: 'William Pradana Putra — Marketing Manager',
     description:
-      'Bridging creative philosophy, system architecture, and sustainable net profit.',
+      'Building brands people feel — and growth the numbers can prove.',
     type: 'website',
   },
 };

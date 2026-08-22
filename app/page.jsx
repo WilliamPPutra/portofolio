@@ -89,7 +89,7 @@ function Hero({ lang }) {
               <div className="absolute inset-0 translate-x-[-120%] bg-gradient-to-r from-transparent via-white/[0.10] to-transparent transition-transform duration-1000 ease-apple group-hover:translate-x-[120%]" />
               <div className="absolute inset-x-4 bottom-4 rounded-2xl border border-white/[0.06] bg-ink/50 px-4 py-3 backdrop-blur-md">
                 <p className="text-sm font-medium text-chalk">{pick(about.name, lang)}</p>
-                <p className="text-xs text-muted">{lang === 'en' ? 'Brand Lead · Strategist' : 'Brand Lead · Strategis'}</p>
+                <p className="text-xs text-muted">{lang === 'en' ? 'Marketing Manager · Brand & Growth' : 'Marketing Manager · Brand & Growth'}</p>
               </div>
             </div>
           </div>
