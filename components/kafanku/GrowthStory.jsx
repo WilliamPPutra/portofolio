@@ -74,119 +74,142 @@ export default function GrowthStory() {
           </div>
         </Reveal>
 
-        {/* PLATFORM PANELS */}
-        <div className="mt-6 grid gap-6 lg:grid-cols-2">
-          {/* SHOPEE */}
-          <Reveal>
+        {/* SHOPEE band (full width) */}
+        <Reveal>
+          <div className="mt-6">
             <Panel color={BRAND.shopee} tint="#FFF4F1" icon={ShoppingBag} name="Shopee"
               tag={t(lang, 'Marketplace engine', 'Mesin marketplace')}>
-              <div className="grid grid-cols-3 gap-3">
-                <BigStat color={BRAND.shopee} label="ROAS" value={G.shopee.ads.roas} sub={t(lang, 'from ads', 'dari iklan')} trophy />
-                <BigStat color={BRAND.shopee} label={t(lang, 'Ad CTR', 'CTR Iklan')} value={G.shopee.ads.ctr} />
-                <BigStat color={BRAND.shopee} label={t(lang, 'Sales / spend', 'Omzet / biaya')} value={`${G.shopee.ads.salesFromAds}`} sub={`/ ${G.shopee.ads.spend}`} small />
-              </div>
+              <div className="grid gap-5 lg:grid-cols-2 lg:items-center">
+                <div>
+                  <div className="grid grid-cols-3 gap-3">
+                    <BigStat color={BRAND.shopee} label="ROAS" value={G.shopee.ads.roas} sub={t(lang, 'from ads', 'dari iklan')} trophy />
+                    <BigStat color={BRAND.shopee} label={t(lang, 'Ad CTR', 'CTR Iklan')} value={G.shopee.ads.ctr} />
+                    <BigStat color={BRAND.shopee} label={t(lang, 'Sales / spend', 'Omzet / biaya')} value={`${G.shopee.ads.salesFromAds}`} sub={`/ ${G.shopee.ads.spend}`} small />
+                  </div>
+                  <p className="mt-4 text-[11px] text-slate-400">
+                    Nov 2025: {t(lang, 'sales', 'omzet')} {G.shopee.nov.salesMoM} · {t(lang, 'orders', 'pesanan')} {G.shopee.nov.ordersMoM} (MoM)
+                  </p>
+                </div>
 
-              {/* Before -> after growth bars */}
-              <div className="mt-5 rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
-                <div className="mb-3 flex items-center justify-between">
-                  <span className="text-xs font-semibold text-slate-500">{t(lang, 'Store sales growth', 'Pertumbuhan omzet toko')}</span>
-                  <span className="rounded-full px-2.5 py-1 text-xs font-bold text-white" style={{ background: BRAND.shopee }}>
-                    {G.shopee.trend.growth}
-                  </span>
-                </div>
-                <div className="flex items-end gap-6">
-                  <TrendBar h={G.shopee.trend.fromH} color="#F6B8A8" label={G.shopee.trend.fromLabel} value={G.shopee.trend.salesFrom} />
-                  <ArrowRight className="mb-6 shrink-0 text-slate-300" size={20} />
-                  <TrendBar h={G.shopee.trend.toH} color={BRAND.shopee} label={G.shopee.trend.toLabel} value={G.shopee.trend.salesTo} />
+                {/* Before -> after growth bars */}
+                <div className="rounded-2xl bg-white p-4 shadow-sm ring-1 ring-black/5">
+                  <div className="mb-3 flex items-center justify-between">
+                    <span className="text-xs font-semibold text-slate-500">{t(lang, 'Store sales growth', 'Pertumbuhan omzet toko')}</span>
+                    <span className="rounded-full px-2.5 py-1 text-xs font-bold text-white" style={{ background: BRAND.shopee }}>
+                      {G.shopee.trend.growth}
+                    </span>
+                  </div>
+                  <div className="flex items-end gap-8">
+                    <TrendBar h={G.shopee.trend.fromH} color="#F6B8A8" label={G.shopee.trend.fromLabel} value={G.shopee.trend.salesFrom} />
+                    <ArrowRight className="mb-6 shrink-0 text-slate-300" size={20} />
+                    <TrendBar h={G.shopee.trend.toH} color={BRAND.shopee} label={G.shopee.trend.toLabel} value={G.shopee.trend.salesTo} />
+                  </div>
                 </div>
               </div>
-              <p className="mt-3 text-[11px] text-slate-400">
-                Nov 2025: {t(lang, 'sales', 'omzet')} {G.shopee.nov.salesMoM} · {t(lang, 'orders', 'pesanan')} {G.shopee.nov.ordersMoM} (MoM)
-              </p>
             </Panel>
-          </Reveal>
+          </div>
+        </Reveal>
 
-          {/* TIKTOK */}
-          <Reveal delay={0.06}>
-            <div className="h-full overflow-hidden rounded-[2rem] p-7 text-white" style={{ background: '#0B0B0F' }}>
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-3">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl" style={{ background: 'linear-gradient(135deg,#25F4EE,#FE2C55)' }}>
-                    <Video size={20} className="text-black" />
-                  </span>
-                  <div>
-                    <p className="text-base font-bold">TikTok</p>
-                    <p className="text-[11px]" style={{ color: BRAND.tiktokCyan }}>{t(lang, 'Social commerce', 'Social commerce')}</p>
-                  </div>
-                </div>
-                <span className="rounded-full px-3 py-1 text-xs font-bold text-black" style={{ background: BRAND.tiktokCyan }}>
-                  {G.tiktok.growth} GMV
-                </span>
+        {/* TIKTOK band (full width): Shop, Ads, Affiliate */}
+        <Reveal delay={0.06}>
+          <div className="mt-6 overflow-hidden rounded-[2rem] p-7 text-white sm:p-9" style={{ background: '#0B0B0F' }}>
+            <div className="flex items-center gap-3">
+              <span className="flex h-12 w-12 items-center justify-center rounded-2xl" style={{ background: 'linear-gradient(135deg,#25F4EE,#FE2C55)' }}>
+                <Video size={22} className="text-black" />
+              </span>
+              <div>
+                <p className="text-lg font-bold">TikTok</p>
+                <p className="text-[11px]" style={{ color: BRAND.tiktokCyan }}>{t(lang, 'Shop, Ads & Affiliate', 'Shop, Ads & Affiliate')}</p>
               </div>
-
-              {/* GMV hero + growth */}
-              <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-                <span className="display text-4xl font-bold">{G.tiktok.gmv}</span>
-                <span className="text-sm text-white/60">GMV, {pick(G.tiktok.period, lang)}</span>
-              </div>
-              <p className="mt-1 text-[11px]" style={{ color: BRAND.tiktokCyan }}>{G.tiktok.mult}</p>
-
-              {/* Metric chips */}
-              <div className="mt-4 grid grid-cols-3 gap-2">
-                {[
-                  { v: G.tiktok.orders, g: G.tiktok.ordersGrowth, l: t(lang, 'Orders', 'Pesanan') },
-                  { v: G.tiktok.buyers, g: G.tiktok.buyersGrowth, l: t(lang, 'Buyers', 'Pembeli') },
-                  { v: G.tiktok.productImpr, g: G.tiktok.productImprGrowth, l: t(lang, 'Impressions', 'Impresi') },
-                ].map((c) => (
-                  <div key={c.l} className="rounded-xl p-2.5" style={{ background: '#17171E' }}>
-                    <p className="text-base font-bold">{c.v}</p>
-                    <p className="text-[10px]" style={{ color: BRAND.tiktokCyan }}>{c.g}</p>
-                    <p className="text-[9px] text-white/40">{c.l}</p>
-                  </div>
-                ))}
-              </div>
-
-              {/* Monthly bars (bars row + labels row so % heights resolve) */}
-              <div className="mt-5">
-                <div className="flex h-40 items-end gap-2">
-                  {G.tiktok.monthly.map((d) => {
-                    const max = Math.max(...G.tiktok.monthly.map((x) => x.v));
-                    const peak = d.m === G.tiktok.peakMonth;
-                    return (
-                      <div
-                        key={d.m}
-                        className="flex-1 rounded-t transition-[height] duration-700 ease-out"
-                        style={{
-                          height: `${Math.max((d.v / max) * 100, 4)}%`,
-                          background: peak ? 'linear-gradient(180deg,#25F4EE,#FE2C55)' : '#2A2A34',
-                        }}
-                        title={`${d.v} jt`}
-                      />
-                    );
-                  })}
-                </div>
-                <div className="mt-2 flex gap-2">
-                  {G.tiktok.monthly.map((d) => {
-                    const peak = d.m === G.tiktok.peakMonth;
-                    return (
-                      <span
-                        key={d.m}
-                        className={`flex-1 text-center text-[9px] ${peak ? 'font-bold' : 'text-white/40'}`}
-                        style={peak ? { color: BRAND.tiktokCyan } : {}}
-                      >
-                        {d.m}
-                      </span>
-                    );
-                  })}
-                </div>
-              </div>
-              <p className="mt-3 text-xs text-white/50">
-                {t(lang, 'Monthly GMV, Q4 2025. Peak in', 'GMV bulanan, Q4 2025. Puncak di')}{' '}
-                <b style={{ color: BRAND.tiktokCyan }}>{t(lang, 'November', 'November')}</b>.
-              </p>
             </div>
-          </Reveal>
-        </div>
+
+            <div className="mt-6 grid gap-4 lg:grid-cols-3">
+              {/* Card 1: Shop (organic) */}
+              <div className="rounded-2xl p-5" style={{ background: '#17171E' }}>
+                <div className="flex items-center justify-between">
+                  <TkChip>{t(lang, 'Shop · organic', 'Shop · organik')}</TkChip>
+                  <TkBadge>{G.tiktok.shop.growth} GMV</TkBadge>
+                </div>
+                <p className="mt-3 flex items-baseline gap-2">
+                  <span className="text-3xl font-bold">{G.tiktok.shop.gmv}</span>
+                  <span className="text-[11px] text-white/50">GMV</span>
+                </p>
+                <p className="text-[11px]" style={{ color: BRAND.tiktokCyan }}>{G.tiktok.shop.mult} · {pick(G.tiktok.shop.period, lang)}</p>
+
+                {/* mini bars Sep to Nov */}
+                <div className="mt-4">
+                  <div className="flex h-24 items-end gap-2">
+                    {G.tiktok.monthly.map((d) => {
+                      const max = Math.max(...G.tiktok.monthly.map((x) => x.v));
+                      const peak = d.m === G.tiktok.peakMonth;
+                      return (
+                        <div key={d.m} className="flex-1 rounded-t"
+                          style={{ height: `${Math.max((d.v / max) * 100, 6)}%`, background: peak ? 'linear-gradient(180deg,#25F4EE,#FE2C55)' : '#2A2A34' }}
+                          title={`${d.v} jt`} />
+                      );
+                    })}
+                  </div>
+                  <div className="mt-1.5 flex gap-2">
+                    {G.tiktok.monthly.map((d) => (
+                      <span key={d.m} className="flex-1 text-center text-[9px] text-white/40">{d.m}</span>
+                    ))}
+                  </div>
+                </div>
+                <div className="mt-3 flex gap-4 text-[11px] text-white/60">
+                  <span><b className="text-white">{G.tiktok.shop.orders}</b> {t(lang, 'orders', 'pesanan')} <span style={{ color: BRAND.tiktokCyan }}>{G.tiktok.shop.ordersGrowth}</span></span>
+                  <span><b className="text-white">{G.tiktok.shop.buyers}</b> {t(lang, 'buyers', 'pembeli')} <span style={{ color: BRAND.tiktokCyan }}>{G.tiktok.shop.buyersGrowth}</span></span>
+                </div>
+              </div>
+
+              {/* Card 2: Ads */}
+              <div className="rounded-2xl p-5" style={{ background: '#17171E' }}>
+                <div className="flex items-center justify-between">
+                  <TkChip>Ads · GMV Max</TkChip>
+                  <TkBadge>{pick(G.tiktok.ads.period, lang)}</TkBadge>
+                </div>
+                <p className="mt-3 flex items-baseline gap-2">
+                  <span className="text-sm text-white/60">ROI</span>
+                  <span className="text-4xl font-bold">{G.tiktok.ads.roi6}</span>
+                  <Trophy size={16} style={{ color: BRAND.tiktokCyan }} />
+                </p>
+                <p className="text-[11px] text-white/50">
+                  {t(lang, 'Revenue', 'Penghasilan')} <b className="text-white">{G.tiktok.ads.revenue}</b> {t(lang, 'from spend', 'dari biaya')} {G.tiktok.ads.spend}
+                </p>
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  <TkStat v={G.tiktok.ads.orders} l={t(lang, 'Orders', 'Pesanan')} />
+                  <TkStat v={G.tiktok.ads.cpo} l={t(lang, 'Cost / order', 'Biaya / order')} />
+                  <TkStat v={G.tiktok.ads.roi1} l={t(lang, 'ROI · 1 mo', 'ROI · 1 bln')} />
+                </div>
+              </div>
+
+              {/* Card 3: Affiliate */}
+              <div className="rounded-2xl p-5" style={{ background: '#17171E' }}>
+                <div className="flex items-center justify-between">
+                  <TkChip>Affiliate · {t(lang, 'creators', 'kreator')}</TkChip>
+                  <TkBadge>{pick(G.tiktok.affiliate.period, lang)}</TkBadge>
+                </div>
+                <p className="mt-3 flex items-baseline gap-2">
+                  <span className="text-3xl font-bold">{G.tiktok.affiliate.gmv}</span>
+                  <span className="text-[11px] font-bold" style={{ color: BRAND.tiktokCyan }}>{G.tiktok.affiliate.gmvGrowth}</span>
+                </p>
+                <p className="text-[11px] text-white/50">
+                  {t(lang, 'Est. commission', 'Perkiraan komisi')} <b className="text-white">{G.tiktok.affiliate.commission}</b>{' '}
+                  <span style={{ color: BRAND.tiktokCyan }}>{G.tiktok.affiliate.commissionGrowth}</span>
+                </p>
+                <div className="mt-4 grid grid-cols-3 gap-2">
+                  <TkStat v={G.tiktok.affiliate.sold} g={G.tiktok.affiliate.soldGrowth} l={t(lang, 'Sold', 'Terjual')} />
+                  <TkStat v={G.tiktok.affiliate.video} g={G.tiktok.affiliate.videoGrowth} l="Video" />
+                  <TkStat v={G.tiktok.affiliate.live} g={G.tiktok.affiliate.liveGrowth} l="LIVE" />
+                </div>
+              </div>
+            </div>
+
+            <p className="mt-5 text-xs text-white/50">
+              {t(lang, 'Organic GMV ramped Sep to Nov 2025 (peak).', 'GMV organik menanjak Sep hingga Nov 2025 (puncak).')}{' '}
+              {t(lang, 'Paid ads returned', 'Iklan berbayar menghasilkan')} <b style={{ color: BRAND.tiktokCyan }}>{G.tiktok.ads.roi6}x</b> ROI.
+            </p>
+          </div>
+        </Reveal>
 
         {/* META CTWA, full width, blue, with the narrative */}
         <Reveal delay={0.05}>
@@ -327,6 +350,23 @@ function PlatformChip({ label, color }) {
     <span className="inline-flex items-center rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white" style={{ background: color }}>
       {label}
     </span>
+  );
+}
+
+/* TikTok card helpers */
+function TkChip({ children }) {
+  return <span className="rounded-full bg-white/10 px-2.5 py-1 text-[10px] font-semibold text-white/80">{children}</span>;
+}
+function TkBadge({ children }) {
+  return <span className="rounded-full px-2.5 py-1 text-[10px] font-bold text-black" style={{ background: '#25F4EE' }}>{children}</span>;
+}
+function TkStat({ v, g, l }) {
+  return (
+    <div className="rounded-xl bg-white/[0.04] p-2.5 text-center">
+      <p className="text-sm font-bold text-white">{v}</p>
+      {g && <p className="text-[9px]" style={{ color: '#25F4EE' }}>{g}</p>}
+      <p className="text-[9px] text-white/40">{l}</p>
+    </div>
   );
 }
 
