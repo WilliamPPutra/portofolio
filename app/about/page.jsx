@@ -18,7 +18,7 @@ export default function AboutPage() {
         tagline={pick(about.journeyLede, lang)}
       />
 
-      {/* Eras — light gray */}
+      {/* Eras, light gray */}
       <section className="bg-applegray">
         <div className="shell py-20 sm:py-28">
           <div className="flex flex-col gap-5">
@@ -56,7 +56,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Ethos — white with dark tiles */}
+      {/* Ethos, white with dark tiles */}
       <section className="bg-white">
         <div className="shell py-20 sm:py-28">
           <Reveal>

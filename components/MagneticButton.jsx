@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 /**
- * Magnetic hover button — the cursor gently pulls the button and its label.
+ * Magnetic hover button, the cursor gently pulls the button and its label.
  * Renders as a Next <Link> when `href` is given, otherwise a <button>.
  */
 export default function MagneticButton({

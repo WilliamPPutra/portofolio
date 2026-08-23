@@ -17,7 +17,7 @@ import {
 
 const rupiah = (n) => 'Rp ' + Number(n || 0).toLocaleString('id-ID');
 
-/* Seed dummy data — resets whenever the demo is closed */
+/* Seed dummy data, resets whenever the demo is closed */
 const SEED_TX = [
   { id: 1, type: 'in', category: 'Iuran Warga', desc: 'Iuran bulanan blok A', amount: 2_400_000, date: '2026-07-01' },
   { id: 2, type: 'out', category: 'Kain Kafan', desc: 'Restok 5 set kain kafan', amount: 1_250_000, date: '2026-07-03' },
@@ -76,7 +76,7 @@ export default function RukunkuApp() {
         )}
       </div>
 
-      {/* Body — plain conditional render (each tab animates itself in) */}
+      {/* Body, plain conditional render (each tab animates itself in) */}
       <div className="min-h-[420px] flex-1 overflow-y-auto bg-slate-50 p-4 pb-2">
         {tab === 'home' && <HomeTab saldo={saldo} tx={tx} lowStock={lowStock} onGo={setTab} />}
         {tab === 'keuangan' && <FinanceTab tx={tx} onAdd={() => setModal('tx')} />}
@@ -101,7 +101,7 @@ export default function RukunkuApp() {
         })}
       </div>
 
-      {/* Modals (conditional render — close is instant, data discarded) */}
+      {/* Modals (conditional render, close is instant, data discarded) */}
       {modal === 'tx' && <TxModal onClose={() => setModal(null)} onSave={addTx} />}
       {modal === 'item' && <ItemModal onClose={() => setModal(null)} onSave={addItem} />}
     </div>
@@ -129,7 +129,7 @@ function HomeTab({ saldo, tx, lowStock, onGo }) {
         <button onClick={() => onGo('inventori')} className="flex w-full items-center gap-2 rounded-2xl border border-amber-200 bg-amber-50 p-3 text-left">
           <AlertTriangle size={16} className="shrink-0 text-amber-500" />
           <span className="text-xs text-amber-700">
-            <b>{lowStock.length} barang</b> di bawah stok minimum — termasuk {lowStock.find((i) => i.kafan) ? 'kain kafan' : lowStock[0].name}.
+            <b>{lowStock.length} barang</b> di bawah stok minimum, termasuk {lowStock.find((i) => i.kafan) ? 'kain kafan' : lowStock[0].name}.
           </span>
         </button>
       )}

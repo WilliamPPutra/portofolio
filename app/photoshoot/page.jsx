@@ -18,7 +18,7 @@ export default function PhotoShootPage() {
         tagline={pick(PS.tagline, lang)}
       />
 
-      {/* Intro — dark band */}
+      {/* Intro, dark band */}
       <section className="bg-ink text-chalk">
         <div className="shell py-20 sm:py-28">
           <Reveal>
@@ -35,7 +35,7 @@ export default function PhotoShootPage() {
         </div>
       </section>
 
-      {/* Categories — white */}
+      {/* Categories, white */}
       <section className="bg-white">
         <div className="shell py-20 sm:py-28">
           <Reveal>
@@ -57,7 +57,7 @@ export default function PhotoShootPage() {
         </div>
       </section>
 
-      {/* Gallery — light gray, masonry-ish */}
+      {/* Gallery, light gray, masonry-ish */}
       <section className="bg-applegray">
         <div className="shell py-20 sm:py-28">
           <Reveal>

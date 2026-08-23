@@ -1,7 +1,7 @@
 'use client';
 
 /**
- * Subtle ambient depth — a soft radial glow + fine grain.
+ * Subtle ambient depth, a soft radial glow + fine grain.
  * Purely decorative, sits behind content.
  */
 export default function Ambient({ className = '' }) {

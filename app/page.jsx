@@ -33,7 +33,7 @@ export default function Home() {
   );
 }
 
-/* ══════════════════ HERO — black cinematic identity ══════════════════ */
+/* ══════════════════ HERO, black cinematic identity ══════════════════ */
 function Hero({ lang }) {
   const ref = useRef(null);
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
@@ -112,7 +112,7 @@ function Hero({ lang }) {
   );
 }
 
-/* ══════════════════ HUB GRID — the four section cards ══════════════════ */
+/* ══════════════════ HUB GRID, the four section cards ══════════════════ */
 function HubGrid({ lang }) {
   return (
     <section id="sections" className="scroll-mt-16 bg-applegray">

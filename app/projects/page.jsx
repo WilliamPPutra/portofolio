@@ -31,7 +31,7 @@ export default function ProjectsPage() {
         titleClass="text-4xl sm:text-5xl md:text-6xl"
       />
 
-      {/* Commerce OS intro — light gray */}
+      {/* Commerce OS intro, light gray */}
       <section className="bg-applegray">
         <div className="shell py-20 sm:py-24">
           <Reveal>
@@ -61,7 +61,7 @@ export default function ProjectsPage() {
         <CommerceBand key={screen.key} screen={screen} lang={lang} />
       ))}
 
-      {/* Lead magnets — light gray */}
+      {/* Lead magnets, light gray */}
       <section className="bg-applegray">
         <div className="shell py-20 sm:py-28">
           <Reveal>
@@ -88,7 +88,7 @@ export default function ProjectsPage() {
       </section>
 
       {/* Playable in-memory demos */}
-      <DemoModal open={demo === 'kepulanganku'} onClose={() => setDemo(null)} title="Kepulanganku — Amanah Terakhir">
+      <DemoModal open={demo === 'kepulanganku'} onClose={() => setDemo(null)} title="Kepulanganku, Amanah Terakhir">
         <KepulangankuGame />
       </DemoModal>
       <DemoModal open={demo === 'rukunku'} onClose={() => setDemo(null)} title="Rukunku App">

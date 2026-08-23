@@ -5,6 +5,7 @@ import { useLang, pick } from '@/lib/i18n';
 import { kafanku as K } from '@/lib/content';
 import Reveal from '@/components/Reveal';
 import { DetailHero } from '@/components/Bits';
+import GrowthStory from '@/components/kafanku/GrowthStory';
 
 export default function PortfolioPage() {
   const { lang } = useLang();
@@ -19,7 +20,7 @@ export default function PortfolioPage() {
         titleClass="text-6xl sm:text-7xl md:text-8xl"
       />
 
-      {/* Meta strip + philosophy — white */}
+      {/* Meta strip + philosophy, white */}
       <section className="bg-white">
         <div className="shell py-20 sm:py-28">
           <Reveal>
@@ -44,7 +45,7 @@ export default function PortfolioPage() {
             <Reveal delay={0.1}>
               <div className="grid grid-cols-2 gap-4">
                 <div className="rounded-3xl border border-appleline/60 bg-applegray p-6">
-                  <p className="text-base font-semibold">Baju Terakhir</p>
+                  <p className="text-base font-semibold">{lang === 'en' ? 'Premium sister brand' : 'Brand kakak premium'}</p>
                   <p className="mt-1 text-sm text-applesub">{lang === 'en' ? 'The “iPhone”' : 'Sang “iPhone”'}</p>
                   <p className="mt-4 text-xs text-applesub">{lang === 'en' ? 'Premium · aspirational' : 'Premium · aspiratif'}</p>
                 </div>
@@ -59,7 +60,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Circular innovation — black band */}
+      {/* Circular innovation, black band */}
       <section className="bg-ink text-chalk">
         <div className="shell py-20 sm:py-28">
           <Reveal>
@@ -94,7 +95,7 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* Problem / pivot / result + matrix + outcomes — light gray */}
+      {/* Problem / pivot / result + matrix + outcomes, light gray */}
       <section className="bg-applegray">
         <div className="shell py-20 sm:py-28">
           <div className="grid gap-6 lg:grid-cols-3">
@@ -148,6 +149,9 @@ export default function PortfolioPage() {
           </div>
         </div>
       </section>
+
+      {/* Growth by the numbers, multi-platform infographic */}
+      <GrowthStory />
     </>
   );
 }

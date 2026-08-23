@@ -41,7 +41,7 @@ const DOT = {
   teal: 'bg-teal-400',
 };
 
-/* ══════════════════ APP SHELL — the real Portal RHK chrome ══════════════════ */
+/* ══════════════════ APP SHELL, the real Portal RHK chrome ══════════════════ */
 const NAV = [
   { key: 'dashboard', icon: LayoutDashboard, label: { en: 'Dashboard', id: 'Dashboard' } },
   { key: 'produk', icon: Package, label: { en: 'Products', id: 'Produk' }, sub: true },
@@ -164,7 +164,7 @@ export function DashboardView({ lang }) {
   const brands = [
     { name: t(lang, 'All Brands', 'Semua Brand'), active: true },
     { name: "Al Ma'tsurat", dot: 'teal' },
-    { name: 'Baju Terakhir', dot: 'green' },
+    { name: t(lang, 'Premium Brand', 'Brand Premium'), dot: 'green' },
     { name: 'Kafanku', dot: 'indigo' },
   ];
   const bars = [26.3, 8, 6, 5, 14.5, 4, 3.5, 9, 7, 6.5, 12, 5.5, 4.5, 8.5, 6, 3, 5, 7.5];
@@ -312,7 +312,7 @@ export function InventoryView({ lang }) {
     { item: t(lang, 'Care label + tag', 'Label perawatan + tag'), qty: '1 set', stock: 2_800 },
   ];
   return (
-    <AppShell active="inventori" title={t(lang, 'Inventory — Produce (BOM)', 'Inventori — Produksi (BOM)')} lang={lang}>
+    <AppShell active="inventori" title={t(lang, 'Inventory, Produce (BOM)', 'Inventori, Produksi (BOM)')} lang={lang}>
       <div className="space-y-4">
         <div className="grid grid-cols-3 gap-3">
           <StatCard label={t(lang, 'Raw items', 'Bahan baku')} value="18" sub={t(lang, 'off-cut SKUs', 'SKU sisa kain')} icon={Scissors} />
@@ -384,13 +384,13 @@ function FlowRow({ icon: Icon, label, sub, tone }) {
   );
 }
 
-/* ══════════════════ 3 · FINANCE — Net-Profit engine ══════════════════ */
+/* ══════════════════ 3 · FINANCE, Net-Profit engine ══════════════════ */
 export function FinanceView({ lang }) {
   const summary = { produk: 171_200_000, diskon: 8_900_000, hpp: 96_400_000, komisi: 12_300_000, omzet: 184_650_000 };
   const laba = summary.produk - summary.diskon - summary.hpp - summary.komisi;
   const perBrand = [
     { brand: 'Kafanku', cnt: 412, omzet: 121_400_000, laba: 34_820_000, color: 'bg-indigo-500' },
-    { brand: 'Baju Terakhir', cnt: 168, omzet: 63_250_000, laba: 18_760_000, color: 'bg-slate-800' },
+    { brand: t(lang, 'Premium Brand', 'Brand Premium'), cnt: 168, omzet: 63_250_000, laba: 18_760_000, color: 'bg-slate-800' },
   ];
   const daily = [22, 31, 28, 44, 39, 52, 47, 61, 55, 68, 72, 64, 79, 88];
   const waterfall = [
@@ -403,7 +403,7 @@ export function FinanceView({ lang }) {
   const maxW = Math.max(...waterfall.map((w) => Math.abs(w.v)));
 
   return (
-    <AppShell active="keuangan" title={t(lang, 'Finance — Reports', 'Keuangan — Laporan')} lang={lang}>
+    <AppShell active="keuangan" title={t(lang, 'Finance, Reports', 'Keuangan, Laporan')} lang={lang}>
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
           <StatCard label={t(lang, 'Revenue (Omzet)', 'Omzet')} value={fmtRp(summary.omzet)} sub="580 order" icon={Wallet} tone="accent" />

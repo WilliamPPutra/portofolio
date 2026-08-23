@@ -53,8 +53,8 @@ const RITES = [
 ];
 
 const QUESTIONS = [
-  { arab: 'مَنْ رَبُّكَ؟', translit: 'Man Rabbuka?', id: 'Siapakah Tuhanmu?', correct: 'Rabbiyallah — Tuhanku Allah', wrong: ['Aku tidak tahu', 'Diriku sendiri'], respon: 'Cahaya melapangkan tempatmu.' },
-  { arab: 'مَا دِيْنُكَ؟', translit: 'Ma Dinuka?', id: 'Apakah agamamu?', correct: 'Diniyal Islam — agamaku Islam', wrong: ['Aku lupa', 'Mengikuti kebanyakan orang'], respon: 'Ketenangan menyelimutimu.' },
+  { arab: 'مَنْ رَبُّكَ؟', translit: 'Man Rabbuka?', id: 'Siapakah Tuhanmu?', correct: 'Rabbiyallah, Tuhanku Allah', wrong: ['Aku tidak tahu', 'Diriku sendiri'], respon: 'Cahaya melapangkan tempatmu.' },
+  { arab: 'مَا دِيْنُكَ؟', translit: 'Ma Dinuka?', id: 'Apakah agamamu?', correct: 'Diniyal Islam, agamaku Islam', wrong: ['Aku lupa', 'Mengikuti kebanyakan orang'], respon: 'Ketenangan menyelimutimu.' },
   { arab: 'مَنْ نَبِيُّكَ؟', translit: 'Man Nabiyyuka?', id: 'Siapakah nabimu?', correct: 'Nabiyyi Muhammad ﷺ', wrong: ['Aku tidak mengenalnya', 'Hanya mendengar namanya'], respon: 'Pintu ke arah surga terbuka, wanginya sampai kepadamu.' },
 ];
 
@@ -100,7 +100,7 @@ export default function KepulangankuGame() {
         <span className="text-[10px]" style={{ color: '#7C89A8' }}>demo edukasi</span>
       </div>
 
-      {/* Body — plain conditional render (each stage animates itself in) */}
+      {/* Body, plain conditional render (each stage animates itself in) */}
       <div className="min-h-[440px] flex-1 overflow-y-auto p-5">
         {stage === 'title' && <Title onStart={() => setStage('rite')} />}
         {stage === 'rite' && (
@@ -138,8 +138,8 @@ function Title({ onStart }) {
       </div>
       <h3 className="text-2xl font-bold" style={{ color: C.cream }}>Perjalanan Pemuliaan Jenazah</h3>
       <p className="mt-3 text-sm leading-relaxed" style={{ color: '#AEB8D0' }}>
-        Sebuah pengalaman naratif tentang tata cara <b style={{ color: C.gold }}>fardhu kifayah</b> — memandikan, mengkafani,
-        dan menguburkan — hingga pertanyaan di alam kubur. Selesaikan tiap tahap sesuai urutannya.
+        Sebuah pengalaman naratif tentang tata cara <b style={{ color: C.gold }}>fardhu kifayah</b>, memandikan, mengkafani,
+        dan menguburkan, hingga pertanyaan di alam kubur. Selesaikan tiap tahap sesuai urutannya.
       </p>
       <button
         onClick={onStart}

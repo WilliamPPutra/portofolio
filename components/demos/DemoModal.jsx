@@ -8,10 +8,10 @@ import { useLang } from '@/lib/i18n';
 /**
  * Full-screen overlay that hosts a playable demo.
  * All demo state lives in the child component, so closing (unmount)
- * throws the data away — nothing is persisted.
+ * throws the data away, nothing is persisted.
  *
  * Renders conditionally (no AnimatePresence) so closing unmounts the child
- * instantly and reliably — the enter animation still plays via `initial/animate`.
+ * instantly and reliably, the enter animation still plays via `initial/animate`.
  */
 export default function DemoModal({ open, onClose, title, children }) {
   const { lang } = useLang();
