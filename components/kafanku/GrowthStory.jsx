@@ -120,12 +120,34 @@ export default function GrowthStory() {
                   </div>
                 </div>
                 <span className="rounded-full px-3 py-1 text-xs font-bold text-black" style={{ background: BRAND.tiktokCyan }}>
-                  {G.tiktok.share} {t(lang, 'of mix', 'dari mix')}
+                  {G.tiktok.growth} GMV
                 </span>
               </div>
 
+              {/* GMV hero + growth */}
+              <div className="mt-5 flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                <span className="display text-4xl font-bold">{G.tiktok.gmv}</span>
+                <span className="text-sm text-white/60">GMV, {pick(G.tiktok.period, lang)}</span>
+              </div>
+              <p className="mt-1 text-[11px]" style={{ color: BRAND.tiktokCyan }}>{G.tiktok.mult}</p>
+
+              {/* Metric chips */}
+              <div className="mt-4 grid grid-cols-3 gap-2">
+                {[
+                  { v: G.tiktok.orders, g: G.tiktok.ordersGrowth, l: t(lang, 'Orders', 'Pesanan') },
+                  { v: G.tiktok.buyers, g: G.tiktok.buyersGrowth, l: t(lang, 'Buyers', 'Pembeli') },
+                  { v: G.tiktok.productImpr, g: G.tiktok.productImprGrowth, l: t(lang, 'Impressions', 'Impresi') },
+                ].map((c) => (
+                  <div key={c.l} className="rounded-xl p-2.5" style={{ background: '#17171E' }}>
+                    <p className="text-base font-bold">{c.v}</p>
+                    <p className="text-[10px]" style={{ color: BRAND.tiktokCyan }}>{c.g}</p>
+                    <p className="text-[9px] text-white/40">{c.l}</p>
+                  </div>
+                ))}
+              </div>
+
               {/* Monthly bars (bars row + labels row so % heights resolve) */}
-              <div className="mt-6">
+              <div className="mt-5">
                 <div className="flex h-40 items-end gap-2">
                   {G.tiktok.monthly.map((d) => {
                     const max = Math.max(...G.tiktok.monthly.map((x) => x.v));
@@ -158,9 +180,9 @@ export default function GrowthStory() {
                   })}
                 </div>
               </div>
-              <p className="mt-4 text-xs text-white/50">
-                {t(lang, 'Revenue contribution, monthly 2026. Peak in', 'Kontribusi pendapatan, bulanan 2026. Puncak di')}{' '}
-                <b style={{ color: BRAND.tiktokCyan }}>{t(lang, 'February', 'Februari')}</b>.
+              <p className="mt-3 text-xs text-white/50">
+                {t(lang, 'Monthly GMV, Q4 2025. Peak in', 'GMV bulanan, Q4 2025. Puncak di')}{' '}
+                <b style={{ color: BRAND.tiktokCyan }}>{t(lang, 'November', 'November')}</b>.
               </p>
             </div>
           </Reveal>
