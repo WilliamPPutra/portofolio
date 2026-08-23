@@ -104,7 +104,22 @@ export default function PortfolioPage() {
                 <div className="flex h-full flex-col rounded-3xl border border-appleline/60 bg-white p-8">
                   <span className="text-sm font-semibold text-applesub">{ch.n} · {pick(ch.kicker, lang)}</span>
                   <h4 className="display mt-3 text-2xl">{pick(ch.title, lang)}</h4>
-                  <p className="mt-4 text-sm leading-relaxed text-appleink/75">{pick(ch.body, lang)}</p>
+                  <p className="mt-4 text-sm leading-relaxed text-appleink/75">{pick(ch.body || ch.intro, lang)}</p>
+                </div>
+              </Reveal>
+            ))}
+          </div>
+
+          {/* The three pivot moves */}
+          <div className="mt-6 grid gap-4 md:grid-cols-3">
+            {K.ch4.moves.map((m, i) => (
+              <Reveal key={i} delay={0.06 * i}>
+                <div className="flex h-full flex-col rounded-3xl border border-appleline/60 bg-white p-7">
+                  <div className="flex items-baseline gap-3">
+                    <span className="text-2xl font-semibold tracking-tightest text-black/15">{m.n}</span>
+                    <h5 className="text-lg font-semibold text-appleink">{pick(m.t, lang)}</h5>
+                  </div>
+                  <p className="mt-3 text-sm leading-relaxed text-applesub">{pick(m.d, lang)}</p>
                 </div>
               </Reveal>
             ))}

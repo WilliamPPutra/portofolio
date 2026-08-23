@@ -1,6 +1,5 @@
 'use client';
 
-import { motion } from 'framer-motion';
 import {
   ShoppingBag,
   Video,
@@ -125,28 +124,39 @@ export default function GrowthStory() {
                 </span>
               </div>
 
-              {/* Monthly bars */}
-              <div className="mt-6 flex h-40 items-end gap-2">
-                {G.tiktok.monthly.map((d) => {
-                  const max = Math.max(...G.tiktok.monthly.map((x) => x.v));
-                  const peak = d.m === G.tiktok.peakMonth;
-                  return (
-                    <div key={d.m} className="flex flex-1 flex-col items-center gap-1.5">
-                      <motion.div
-                        initial={{ height: 0 }}
-                        whileInView={{ height: `${(d.v / max) * 100}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                        className="w-full rounded-t"
-                        style={{ background: peak ? 'linear-gradient(180deg,#25F4EE,#FE2C55)' : '#2A2A34' }}
+              {/* Monthly bars (bars row + labels row so % heights resolve) */}
+              <div className="mt-6">
+                <div className="flex h-40 items-end gap-2">
+                  {G.tiktok.monthly.map((d) => {
+                    const max = Math.max(...G.tiktok.monthly.map((x) => x.v));
+                    const peak = d.m === G.tiktok.peakMonth;
+                    return (
+                      <div
+                        key={d.m}
+                        className="flex-1 rounded-t transition-[height] duration-700 ease-out"
+                        style={{
+                          height: `${Math.max((d.v / max) * 100, 4)}%`,
+                          background: peak ? 'linear-gradient(180deg,#25F4EE,#FE2C55)' : '#2A2A34',
+                        }}
                         title={`${d.v} jt`}
                       />
-                      <span className={`text-[9px] ${peak ? 'font-bold' : 'text-white/40'}`} style={peak ? { color: BRAND.tiktokCyan } : {}}>
+                    );
+                  })}
+                </div>
+                <div className="mt-2 flex gap-2">
+                  {G.tiktok.monthly.map((d) => {
+                    const peak = d.m === G.tiktok.peakMonth;
+                    return (
+                      <span
+                        key={d.m}
+                        className={`flex-1 text-center text-[9px] ${peak ? 'font-bold' : 'text-white/40'}`}
+                        style={peak ? { color: BRAND.tiktokCyan } : {}}
+                      >
                         {d.m}
                       </span>
-                    </div>
-                  );
-                })}
+                    );
+                  })}
+                </div>
               </div>
               <p className="mt-4 text-xs text-white/50">
                 {t(lang, 'Revenue contribution, monthly 2026. Peak in', 'Kontribusi pendapatan, bulanan 2026. Puncak di')}{' '}
@@ -227,18 +237,14 @@ export default function GrowthStory() {
                   <div key={r.m} className="flex items-center gap-3">
                     <span className="w-8 shrink-0 text-xs font-medium text-slate-500">{r.m}</span>
                     <div className="relative h-7 flex-1 overflow-hidden rounded-lg bg-slate-100">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        whileInView={{ width: `${(r.leads / maxLeads) * 100}%` }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-                        className="flex h-full items-center rounded-lg"
-                        style={{ background: `${BRAND.wa}22` }}
+                      <div
+                        className="flex h-full items-center rounded-lg transition-[width] duration-700 ease-out"
+                        style={{ width: `${(r.leads / maxLeads) * 100}%`, background: `${BRAND.wa}22` }}
                       >
                         <span className="pl-2 text-[11px] font-medium" style={{ color: BRAND.waDeep }}>
                           {r.leads.toLocaleString('id-ID')} leads
                         </span>
-                      </motion.div>
+                      </div>
                     </div>
                     <span className="flex w-24 shrink-0 items-center justify-end gap-1.5 text-[11px]">
                       <span className="font-bold text-slate-700">{r.close}</span>
@@ -319,13 +325,9 @@ function TrendBar({ h, color, label, value }) {
   return (
     <div className="flex flex-1 flex-col items-center">
       <span className="mb-1.5 text-[11px] font-bold text-slate-700">{value}</span>
-      <motion.div
-        initial={{ height: 0 }}
-        whileInView={{ height: `${h * 1.1}px` }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="w-full max-w-[70px] rounded-t-lg"
-        style={{ background: color }}
+      <div
+        className="w-full max-w-[70px] rounded-t-lg transition-[height] duration-700 ease-out"
+        style={{ height: `${h * 1.1}px`, background: color }}
       />
       <span className="mt-2 text-[10px] text-slate-400">{label}</span>
     </div>
