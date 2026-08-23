@@ -16,16 +16,37 @@ export default function TeamContent() {
 
   return (
     <section className="bg-applegray">
-      <div className="shell py-20 sm:py-28">
-        {/* TEAM */}
+      <div className="shell py-24 sm:py-32">
+        {/* BIG OPENER */}
         <Reveal>
-          <SectionKicker icon={Users} eyebrow={t(lang, 'The team', 'Tim')} />
+          <span className="eyebrow text-applesub">{t(lang, 'Behind the growth', 'Di balik pertumbuhan')}</span>
         </Reveal>
         <Reveal delay={0.05}>
-          <h2 className="display mt-7 max-w-3xl text-4xl text-appleink sm:text-5xl md:text-6xl">
-            {t(lang, 'Lean team, amplified by AI.', 'Tim ramping, diperkuat AI.')}
+          <h2 className="display mt-5 max-w-4xl text-5xl text-appleink sm:text-6xl md:text-7xl">
+            {t(lang, 'Behind every number: a team and a content engine.', 'Di balik tiap angka: tim dan mesin konten.')}
           </h2>
         </Reveal>
+        <Reveal delay={0.1}>
+          <p className="mt-7 max-w-2xl text-lg leading-relaxed text-applesub sm:text-xl">
+            {t(
+              lang,
+              'The growth above was not luck. It was produced by a deliberately small team and a content system rebuilt around AI.',
+              'Pertumbuhan di atas bukan keberuntungan. Semua diproduksi oleh tim yang sengaja kecil dan sistem konten yang dibangun ulang di sekitar AI.'
+            )}
+          </p>
+        </Reveal>
+
+        {/* TEAM */}
+        <div className="mt-20">
+          <Reveal>
+            <SectionKicker icon={Users} eyebrow={t(lang, 'The team', 'Tim')} />
+          </Reveal>
+          <Reveal delay={0.05}>
+            <h3 className="display mt-6 max-w-3xl text-3xl text-appleink sm:text-4xl">
+              {t(lang, 'Lean team, amplified by AI.', 'Tim ramping, diperkuat AI.')}
+            </h3>
+          </Reveal>
+        </div>
         <Reveal delay={0.1}>
           <p className="mt-6 max-w-3xl text-lg leading-relaxed text-applesub">{pick(team.narrative, lang)}</p>
         </Reveal>
