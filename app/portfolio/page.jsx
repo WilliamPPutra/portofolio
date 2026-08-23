@@ -6,6 +6,7 @@ import { kafanku as K } from '@/lib/content';
 import Reveal from '@/components/Reveal';
 import { DetailHero } from '@/components/Bits';
 import GrowthStory from '@/components/kafanku/GrowthStory';
+import TeamContent from '@/components/kafanku/TeamContent';
 
 export default function PortfolioPage() {
   const { lang } = useLang();
@@ -167,6 +168,9 @@ export default function PortfolioPage() {
 
       {/* Growth by the numbers, multi-platform infographic */}
       <GrowthStory />
+
+      {/* Team + content showcase (before/after, arsenal, influencers) */}
+      <TeamContent />
     </>
   );
 }
