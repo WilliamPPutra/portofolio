@@ -1,4 +1,4 @@
-/node_modules
+node_modules/
 /.next
 /out
 /build
@@ -8,3 +8,8 @@ npm-debug.log*
 .env*.local
 .vercel
 next-env.d.ts
+
+# Commerce OS demo build inputs. The built output in public/demo/ IS committed,
+# but the Vite workspace that produces it is not.
+/demo-src/**/dist
+/demo-src/**/.vite

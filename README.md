@@ -46,6 +46,17 @@ Privacy Protected"** badge:
 Extra mockups (Marketing/ROAS, Orders) still live in `components/commerce/views.jsx`
 if you want to feature them too.
 
+## Live demos (open in a new tab)
+
+- **Commerce OS demo** at `/demo/commerce-os/` — a static build of the real Portal RHK
+  Inertia/React admin, fed with dummy data. Source in `demo-src/commerce-os/`.
+- **Kepulanganku (Amanah Terakhir)** at `/games/amanah-terakhir/` — the real Phaser game,
+  rebuilt from `kOS Development/kos/games/amanah-terakhir` with the portfolio base path.
+
+The Commerce OS screenshots on `/projects` are deliberately **not responsive**: they render
+at a fixed 1040px desktop layout and are scaled down to fit (`components/commerce/FixedScale.jsx`),
+so the app looks identical everywhere, just smaller on a phone.
+
 ## Lead magnets & creative
 
 - **Kepulanganku** — educational game (colorful tile)

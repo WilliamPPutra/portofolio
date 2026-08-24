@@ -62,7 +62,7 @@ function AppShell({ active, title, lang, children }) {
   return (
     <div className="flex min-h-[540px] overflow-hidden rounded-xl bg-slate-50 text-slate-800">
       {/* Sidebar */}
-      <aside className="hidden w-[186px] shrink-0 flex-col border-r border-slate-200 bg-white sm:flex">
+      <aside className="flex w-[186px] shrink-0 flex-col border-r border-slate-200 bg-white">
         {/* Logo */}
         <div className="flex items-center gap-2.5 border-b border-slate-100 px-4 py-3.5">
           <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-indigo-500 to-violet-500 text-[11px] font-bold text-white">
@@ -110,13 +110,13 @@ function AppShell({ active, title, lang, children }) {
         <header className="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-3">
           <h3 className="text-[15px] font-bold text-slate-800">{title}</h3>
           <div className="flex items-center gap-2">
-            <span className="hidden items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1.5 text-[11px] text-slate-400 md:flex">
+            <span className="flex items-center gap-1.5 rounded-lg bg-slate-100 px-2.5 py-1.5 text-[11px] text-slate-400">
               <Search size={12} /> {t(lang, 'Search…', 'Cari…')}
             </span>
             <span className="h-7 w-7 rounded-full bg-slate-100" />
           </div>
         </header>
-        <div className="flex-1 p-4 sm:p-5">{children}</div>
+        <div className="flex-1 p-5">{children}</div>
       </div>
     </div>
   );
@@ -203,7 +203,7 @@ export function DashboardView({ lang }) {
         </div>
 
         {/* KPI cards */}
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="grid grid-cols-4 gap-3">
           {/* Pendapatan (custom) */}
           <div className="rounded-xl border border-slate-200/70 bg-white p-4 shadow-sm">
             <div className="flex items-center justify-between">
@@ -226,9 +226,9 @@ export function DashboardView({ lang }) {
         </div>
 
         {/* Charts */}
-        <div className="grid gap-3 lg:grid-cols-3">
+        <div className="grid grid-cols-3 gap-3">
           {/* Performa Penjualan */}
-          <div className="rounded-xl border border-slate-200/70 bg-white p-4 shadow-sm lg:col-span-2">
+          <div className="rounded-xl border border-slate-200/70 bg-white p-4 shadow-sm col-span-2">
             <div className="mb-1 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <span className="text-blue-500"><TrendingUp size={16} /></span>
@@ -320,7 +320,7 @@ export function InventoryView({ lang }) {
           <StatCard label={t(lang, 'Waste diverted', 'Limbah dialihkan')} value="96%" sub={t(lang, 'of surplus', 'dari surplus')} icon={Boxes} tone="profit" />
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-[1.2fr_0.8fr]">
+        <div className="grid grid-cols-[1.2fr_0.8fr] gap-3">
           <Panel title={t(lang, 'Produce · Bill of Materials', 'Produksi · Bill of Materials')}>
             <div className="p-4">
               <div className="mb-3 flex items-center justify-between rounded-lg bg-indigo-50 px-3 py-2">
@@ -405,14 +405,14 @@ export function FinanceView({ lang }) {
   return (
     <AppShell active="keuangan" title={t(lang, 'Finance, Reports', 'Keuangan, Laporan')} lang={lang}>
       <div className="space-y-4">
-        <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+        <div className="grid grid-cols-4 gap-3">
           <StatCard label={t(lang, 'Revenue (Omzet)', 'Omzet')} value={fmtRp(summary.omzet)} sub="580 order" icon={Wallet} tone="accent" />
           <StatCard label="HPP (COGS)" value={fmtRp(summary.hpp)} sub="52.2%" icon={Boxes} tone="cost" />
           <StatCard label={t(lang, 'Affiliate Comm.', 'Komisi Afiliasi')} value={fmtRp(summary.komisi)} icon={Percent} tone="cost" />
           <StatCard label={t(lang, 'Net Profit', 'Laba Bersih')} value={fmtRp(laba)} sub="+ margin 32.4%" icon={TrendingUp} tone="profit" />
         </div>
 
-        <div className="grid gap-3 lg:grid-cols-2">
+        <div className="grid grid-cols-2 gap-3">
           <Panel title={t(lang, 'Profit breakdown', 'Rincian laba')}>
             <div className="space-y-3 p-4">
               {waterfall.map((w, i) => (
@@ -531,7 +531,7 @@ export function WebBuilderView({ lang }) {
             <div className="rounded-lg border border-slate-200 px-3 py-2 text-xs text-slate-400">{t(lang, 'e.g. Ramadhan Promo', 'mis. Promo Ramadhan')}</div>
           </Field>
 
-          <div className="mt-3 grid gap-3 sm:grid-cols-3">
+          <div className="mt-3 grid grid-cols-3 gap-3">
             <Field label="Brand">
               <Select value="Umum" />
             </Field>
@@ -543,7 +543,7 @@ export function WebBuilderView({ lang }) {
             </Field>
           </div>
 
-          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+          <div className="mt-3 grid grid-cols-2 gap-3">
             <Field label={t(lang, 'Access via', 'Akses lewat')}>
               <div className="flex gap-2">
                 <span className="flex-1 rounded-lg border-2 border-indigo-400 bg-indigo-50 py-2 text-center text-xs font-medium text-indigo-700">Slug (/path)</span>

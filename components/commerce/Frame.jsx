@@ -13,7 +13,7 @@ export default function Frame({ children, url = 'kos.kafanku.id/admin', flush = 
   return (
     <div className="relative min-w-0">
       {/* Privacy badge */}
-      <div className="absolute -top-3 right-3 z-20 sm:right-5">
+      <div className="absolute -top-3 right-5 z-20">
         <div className="flex items-center gap-1.5 rounded-full border border-black/10 bg-white/90 px-3 py-1.5 text-[11px] font-medium text-appleink shadow-lg backdrop-blur-md">
           <ShieldCheck size={13} className="text-emerald-500" />
           {pick(projects.os.privacy, lang)}
@@ -34,7 +34,7 @@ export default function Frame({ children, url = 'kos.kafanku.id/admin', flush = 
           </div>
         </div>
         {/* Canvas */}
-        <div className={flush ? 'bg-white' : 'bg-slate-100 p-4 sm:p-5'}>{children}</div>
+        <div className={flush ? 'bg-white' : 'bg-slate-100 p-5'}>{children}</div>
       </div>
     </div>
   );
