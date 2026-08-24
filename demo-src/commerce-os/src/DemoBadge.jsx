@@ -23,9 +23,9 @@ export default function DemoBadge() {
                 </div>
             )}
 
-            <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-[9998] print:hidden">
+            <div className="fixed bottom-4 right-4 z-[9998] print:hidden">
                 {expanded ? (
-                    <div className="bg-gray-900/95 backdrop-blur text-white rounded-2xl shadow-2xl px-4 py-3 max-w-sm ring-1 ring-white/10">
+                    <div className="bg-gray-900 text-white rounded-2xl shadow-2xl px-4 py-3 max-w-sm ring-1 ring-gray-700">
                         <div className="flex items-start gap-2">
                             <ShieldCheck size={16} className="text-emerald-400 mt-0.5 flex-shrink-0" />
                             <div className="text-[11px] leading-relaxed">
@@ -44,7 +44,7 @@ export default function DemoBadge() {
                 ) : (
                     <button
                         onClick={() => setExpanded(true)}
-                        className="flex items-center gap-2 bg-gray-900/90 backdrop-blur text-white text-[11px] font-medium px-4 py-2 rounded-full shadow-xl ring-1 ring-white/10 hover:bg-gray-900 transition"
+                        className="flex items-center gap-2 bg-gray-900 text-white text-[11px] font-semibold px-4 py-2 rounded-full shadow-xl ring-1 ring-gray-700 hover:bg-gray-800 transition"
                     >
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                         Data Simulasi · Privasi Dilindungi

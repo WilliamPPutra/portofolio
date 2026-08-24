@@ -13,6 +13,7 @@ import {
   Wand2,
   ExternalLink,
   Check,
+  Play,
 } from 'lucide-react';
 import { useLang, pick } from '@/lib/i18n';
 import { projects as P } from '@/lib/content';
@@ -27,6 +28,9 @@ const SCREEN_ICON = { LayoutDashboard, Boxes, Wallet, Globe };
 
 const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const DEMO_URL = `${base}/demo/commerce-os/index.html`;
+const GAME_URL = `${base}/games/kepulanganku/index.html`;
+
+const t = (lang, en, id) => (lang === 'id' ? id : en);
 
 export default function ProjectsPage() {
   const { lang } = useLang();
@@ -119,6 +123,40 @@ export default function ProjectsPage() {
         <CommerceBand key={screen.key} screen={screen} lang={lang} />
       ))}
 
+      {/* Try it yourself, after the screenshots */}
+      <section className="border-t border-appleline/50 bg-white">
+        <div className="shell py-16 text-center sm:py-20">
+          <Reveal>
+            <h3 className="display mx-auto max-w-2xl text-3xl text-appleink sm:text-4xl">
+              {t(lang, 'Rather click around than read about it?', 'Lebih suka klik sendiri daripada membaca?')}
+            </h3>
+          </Reveal>
+          <Reveal delay={0.05}>
+            <p className="mx-auto mt-5 max-w-xl text-base leading-relaxed text-applesub">
+              {t(
+                lang,
+                'Every screen above is live in the demo. Open it and browse the sidebar yourself.',
+                'Semua layar di atas ada di demo. Buka dan telusuri sendiri menu di sampingnya.'
+              )}
+            </p>
+          </Reveal>
+          <Reveal delay={0.1}>
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
+              <a
+                href={DEMO_URL}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 rounded-full bg-appleink px-6 py-3.5 text-sm font-medium text-white transition-transform hover:scale-[1.03] active:scale-95"
+              >
+                <ExternalLink size={16} />
+                {pick(os.demoCta, lang)}
+              </a>
+              <span className="text-[11px] text-muted">{pick(os.demoNote, lang)}</span>
+            </div>
+          </Reveal>
+        </div>
+      </section>
+
       {/* Lead magnet */}
       <section className="bg-applegray">
         <div className="shell py-20 sm:py-28">
@@ -129,7 +167,14 @@ export default function ProjectsPage() {
             <h3 className="display mt-7 max-w-3xl text-3xl text-appleink sm:text-4xl md:text-5xl">{pick(P.leadTitle, lang)}</h3>
           </Reveal>
 
-          <div className="mt-12 grid gap-6 md:grid-cols-2">
+          {/* Live preview of the real game, same idea as the app screenshots */}
+          <Reveal delay={0.08}>
+            <div className="mx-auto mt-12 max-w-4xl">
+              <GamePreview lang={lang} />
+            </div>
+          </Reveal>
+
+          <div className="mt-10 grid gap-6 md:grid-cols-2">
             {P.leads.map((l, i) => (
               <Reveal key={i} delay={0.08 * i}>
                 <LeadCard lead={l} icon={Gamepad2} lang={lang} />
@@ -187,6 +232,51 @@ function CommerceBand({ screen, lang }) {
         </Reveal>
       </div>
     </div>
+  );
+}
+
+/* A real, running preview of the game framed like the app screenshots. */
+function GamePreview({ lang }) {
+  return (
+    <FixedScale width={960}>
+      <div className="overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
+        {/* browser chrome */}
+        <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-100 px-4 py-2.5">
+          <div className="flex gap-1.5">
+            <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+            <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+            <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+          </div>
+          <div className="mx-auto flex items-center gap-1.5 rounded-md bg-white px-3 py-1 text-[11px] text-slate-400 shadow-sm">
+            pusatkainkafan.com/games/kepulanganku
+          </div>
+        </div>
+
+        {/* the actual game, loaded only when scrolled near, preview only */}
+        <div className="relative bg-black" style={{ height: 560 }}>
+          <iframe
+            src={GAME_URL}
+            title="Kepulanganku"
+            loading="lazy"
+            tabIndex={-1}
+            scrolling="no"
+            className="h-full w-full border-0"
+            style={{ pointerEvents: 'none' }}
+          />
+          <a
+            href={GAME_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/60 via-transparent to-transparent pb-8"
+          >
+            <span className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-appleink shadow-xl transition-transform group-hover:scale-105">
+              <Play size={16} className="fill-appleink" />
+              {t(lang, 'Play the real game', 'Mainkan game aslinya')}
+            </span>
+          </a>
+        </div>
+      </div>
+    </FixedScale>
   );
 }
 

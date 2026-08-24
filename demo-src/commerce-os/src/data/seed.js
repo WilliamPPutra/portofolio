@@ -53,7 +53,6 @@ export function paginate(items, perPage = 20, path = '/admin') {
 // ── Brand ───────────────────────────────────────────────────────────
 export const brands = [
     { id: 1, name: 'Kafanku', slug: 'kafanku', color: 'indigo', created_at: iso(400), updated_at: iso(12) },
-    { id: 2, name: "Al Ma'tsurat", slug: 'al-matsurat', color: 'emerald', created_at: iso(310), updated_at: iso(9) },
     { id: 3, name: 'Brand Premium', slug: 'brand-premium', color: 'amber', created_at: iso(180), updated_at: iso(4) },
 ];
 export const brandsLite = brands.map(b => ({ id: b.id, name: b.name, color: b.color }));
@@ -82,7 +81,7 @@ export const categories = [
     { id: 2, name: 'Paket Kafan Siap Pakai', slug: 'paket-kafan-siap-pakai', parent_id: 1, brand_id: 1, created_at: iso(380), updated_at: iso(30) },
     { id: 3, name: 'Perlengkapan Jenazah', slug: 'perlengkapan-jenazah', parent_id: null, brand_id: 1, created_at: iso(375), updated_at: iso(28) },
     { id: 4, name: 'Wewangian & Kapur Barus', slug: 'wewangian-kapur-barus', parent_id: 3, brand_id: 1, created_at: iso(370), updated_at: iso(25) },
-    { id: 5, name: 'Perlengkapan Masjid', slug: 'perlengkapan-masjid', parent_id: null, brand_id: 2, created_at: iso(300), updated_at: iso(22) },
+    { id: 5, name: 'Perlengkapan Masjid', slug: 'perlengkapan-masjid', parent_id: null, brand_id: 3, created_at: iso(300), updated_at: iso(22) },
     { id: 6, name: 'Paket Premium', slug: 'paket-premium', parent_id: null, brand_id: 3, created_at: iso(170), updated_at: iso(10) },
 ];
 categories.forEach(c => {
@@ -101,12 +100,12 @@ const PRODUK = [
     { id: 7, name: 'Minyak Wangi Non Alkohol 30 ml', cat: 4, brand: 1, harga: 38000, hpp: 19000, stok: 0 },
     { id: 8, name: 'Kain Kafan Sutra Halus Premium 12 Meter', cat: 6, brand: 3, harga: 875000, hpp: 560000, stok: 23 },
     { id: 9, name: 'Paket Kafan Premium Eksklusif', cat: 6, brand: 3, harga: 1250000, hpp: 790000, stok: 12 },
-    { id: 10, name: 'Sajadah Masjid Roll 1 Meter', cat: 5, brand: 2, harga: 165000, hpp: 98000, stok: 156 },
-    { id: 11, name: 'Mukena Katun Jepang Dewasa', cat: 5, brand: 2, harga: 210000, hpp: 128000, stok: 68 },
+    { id: 10, name: 'Sajadah Masjid Roll 1 Meter', cat: 5, brand: 3, harga: 165000, hpp: 98000, stok: 156 },
+    { id: 11, name: 'Mukena Katun Jepang Dewasa', cat: 5, brand: 3, harga: 210000, hpp: 128000, stok: 68 },
     { id: 12, name: 'Keranda Jenazah Aluminium Lipat', cat: 3, brand: 1, harga: 2450000, hpp: 1680000, stok: 4 },
     { id: 13, name: 'Kain Kafan Katun Ekonomis 5 Meter', cat: 1, brand: 1, harga: 125000, hpp: 78000, stok: 310 },
     { id: 14, name: 'Set Kapan Bayi & Anak', cat: 2, brand: 1, harga: 185000, hpp: 112000, stok: 6 },
-    { id: 15, name: 'Buku Panduan Pengurusan Jenazah', cat: 3, brand: 2, harga: 65000, hpp: 32000, stok: 92 },
+    { id: 15, name: 'Buku Panduan Pengurusan Jenazah', cat: 3, brand: 3, harga: 65000, hpp: 32000, stok: 92 },
 ];
 
 const variantOf = (p, idx, suffix, priceDelta = 0, stockShare = 1) => ({
@@ -181,7 +180,7 @@ export const orders = Array.from({ length: 48 }, (_, i) => {
     const buyer = BUYERS[i % BUYERS.length];
     const source = SOURCES[i % 3];
     const platform = pick(PLATFORMS[source]);
-    const brand = brands[i % 3];
+    const brand = brands[i % brands.length];
     const status = i < 4 ? 'pending' : STATUSES[between(0, STATUSES.length - 1)];
     const items = Array.from({ length: between(1, 3) }, (_, k) => {
         const p = productById(between(1, 15));
@@ -270,7 +269,7 @@ export const vouchers = [
     { id: 1, code: 'BERKAH50', name: 'Diskon Berkah Ramadan', description: 'Potongan tetap untuk pembelian paket kafan minimal 1 juta.', type: 'fixed', value: 50000, min_purchase: 1000000, max_discount: null, product_scope: 'all', applies_to: 'both', brand_id: 1, is_active: true, starts_at: iso(60), expires_at: iso(-30), usage_limit: 500, used_count: 187, deleted_at: null, created_at: iso(70), updated_at: iso(2) },
     { id: 2, code: 'DKM10', name: 'Diskon Khusus DKM', description: 'Potongan 10 persen untuk pengurus masjid.', type: 'percentage', value: 10, min_purchase: 500000, max_discount: 150000, product_scope: 'specific', applies_to: 'physical', brand_id: 1, is_active: true, starts_at: iso(120), expires_at: null, usage_limit: null, used_count: 342, deleted_at: null, created_at: iso(130), updated_at: iso(5) },
     { id: 3, code: 'GRATISONGKIR', name: 'Gratis Ongkir Nasional', description: 'Bebas ongkir untuk pembelian di atas 2 juta.', type: 'free_shipping', value: 0, min_purchase: 2000000, max_discount: 100000, product_scope: 'all', applies_to: 'physical', brand_id: null, is_active: true, starts_at: iso(20), expires_at: iso(-14), usage_limit: 200, used_count: 64, deleted_at: null, created_at: iso(25), updated_at: iso(1) },
-    { id: 4, code: 'EBOOKGRATIS', name: 'Ebook Panduan Gratis', description: 'Harga khusus produk digital.', type: 'flat_price', value: 0, min_purchase: 0, max_discount: null, product_scope: 'specific', applies_to: 'digital', brand_id: 2, is_active: false, starts_at: iso(200), expires_at: iso(40), usage_limit: 1000, used_count: 911, deleted_at: null, created_at: iso(210), updated_at: iso(40) },
+    { id: 4, code: 'EBOOKGRATIS', name: 'Ebook Panduan Gratis', description: 'Harga khusus produk digital.', type: 'flat_price', value: 0, min_purchase: 0, max_discount: null, product_scope: 'specific', applies_to: 'digital', brand_id: 3, is_active: false, starts_at: iso(200), expires_at: iso(40), usage_limit: 1000, used_count: 911, deleted_at: null, created_at: iso(210), updated_at: iso(40) },
     { id: 5, code: 'PREMIUM15', name: 'Promo Brand Premium', description: 'Diskon 15 persen paket premium.', type: 'percentage', value: 15, min_purchase: 1500000, max_discount: 300000, product_scope: 'specific', applies_to: 'physical', brand_id: 3, is_active: true, starts_at: iso(10), expires_at: iso(-45), usage_limit: 100, used_count: 23, deleted_at: null, created_at: iso(12), updated_at: iso(1) },
 ];
 
@@ -284,8 +283,8 @@ export const voucherById = id => vouchers.find(v => v.id === Number(id)) ?? vouc
 export const digitalProducts = [
     { id: 1, name: 'Panduan Lengkap Pengurusan Jenazah', slug: 'panduan-pengurusan-jenazah', landing_url: 'https://contoh.id/panduan', description: 'Ebook 84 halaman untuk pengurus DKM dan relawan.', price: 79000, is_lead_magnet: false, cover_image: null, file_path: 'ebooks/panduan.pdf', brand_id: 1, is_active: true, created_at: iso(220), updated_at: iso(8), deleted_at: null, cover_url: null },
     { id: 2, name: 'Checklist Persiapan Takziah Masjid', slug: 'checklist-takziah', landing_url: null, description: 'Lead magnet gratis untuk membangun database DKM.', price: 0, is_lead_magnet: true, cover_image: null, file_path: 'ebooks/checklist.pdf', brand_id: 1, is_active: true, created_at: iso(190), updated_at: iso(15), deleted_at: null, cover_url: null },
-    { id: 3, name: 'Template Dokumen RT/RW Lengkap', slug: 'template-dokumen-rt', landing_url: 'https://contoh.id/template-rt', description: '36 template surat siap pakai untuk pengurus RT dan RW.', price: 149000, is_lead_magnet: false, cover_image: null, file_path: 'ebooks/template-rt.zip', brand_id: 2, is_active: true, created_at: iso(150), updated_at: iso(3), deleted_at: null, cover_url: null },
-    { id: 4, name: 'Modul Manajemen Kas Masjid', slug: 'modul-kas-masjid', landing_url: null, description: 'Panduan pembukuan sederhana untuk bendahara masjid.', price: 99000, is_lead_magnet: false, cover_image: null, file_path: 'ebooks/kas-masjid.pdf', brand_id: 2, is_active: true, created_at: iso(120), updated_at: iso(20), deleted_at: null, cover_url: null },
+    { id: 3, name: 'Template Dokumen RT/RW Lengkap', slug: 'template-dokumen-rt', landing_url: 'https://contoh.id/template-rt', description: '36 template surat siap pakai untuk pengurus RT dan RW.', price: 149000, is_lead_magnet: false, cover_image: null, file_path: 'ebooks/template-rt.zip', brand_id: 3, is_active: true, created_at: iso(150), updated_at: iso(3), deleted_at: null, cover_url: null },
+    { id: 4, name: 'Modul Manajemen Kas Masjid', slug: 'modul-kas-masjid', landing_url: null, description: 'Panduan pembukuan sederhana untuk bendahara masjid.', price: 99000, is_lead_magnet: false, cover_image: null, file_path: 'ebooks/kas-masjid.pdf', brand_id: 3, is_active: true, created_at: iso(120), updated_at: iso(20), deleted_at: null, cover_url: null },
 ];
 
 export const digitalProductsWithCounts = digitalProducts.map((p, i) => ({
@@ -395,7 +394,7 @@ const SKU_SRC = [
     { id: 3, brand: 1, code: 'SKU-KN5-01', name: 'Kain Kafan 5 Meter Standar', toko: 'Gudang Pusat', stock: 240 },
     { id: 4, brand: 1, code: 'SKU-KN12-01', name: 'Kain Kafan 12 Meter Halus', toko: 'Gudang Pusat', stock: 132 },
     { id: 5, brand: 3, code: 'SKU-PRM-01', name: 'Paket Kafan Premium Eksklusif', toko: 'Gudang Premium', stock: 12 },
-    { id: 6, brand: 2, code: 'SKU-SJD-01', name: 'Sajadah Masjid Roll', toko: 'Gudang Cabang', stock: 156 },
+    { id: 6, brand: 3, code: 'SKU-SJD-01', name: 'Sajadah Masjid Roll', toko: 'Gudang Cabang', stock: 156 },
     { id: 7, brand: 1, code: 'SKU-SETB-01', name: 'Set Kafan Bayi & Anak', toko: 'Gudang Pusat', stock: 6 },
     { id: 8, brand: 1, code: 'SKU-PRLK-01', name: 'Set Perlengkapan Memandikan', toko: 'Gudang Pusat', stock: 0 },
 ];
@@ -467,7 +466,7 @@ export const makePartners = (type) => PARTNER_NAMES.map((name, i) => {
         name,
         phone: `0812345${pad(60 + i)}${pad(i)}`,
         email: `${name.toLowerCase().replace(/[^a-z]+/g, '.')}@contoh.id`,
-        referral_code: `${type === 'affiliate' ? 'AFF' : 'RSL'}${pad(i + 1)}${['KFN', 'ALM', 'PRM'][i % 3]}`,
+        referral_code: `${type === 'affiliate' ? 'AFF' : 'RSL'}${pad(i + 1)}${['KFN', 'PRM'][i % 2]}`,
         commission_rate: rate,
         status: i === 2 ? 'pending' : i === 6 ? 'suspended' : 'active',
         bank: `${BANKS[i % 4]} ${between(1000000000, 9999999999)} a.n. ${name}`,
@@ -486,9 +485,9 @@ export const landingDomains = ['pusatkainkafan.com', 'kafanku.id', 'brandpremium
 export const landings = [
     { id: 1, name: 'Paket Kafan Masjid 2026', brand: 'Kafanku', brand_id: '1', category: 'Iklan', type: 'html', mode: 'slug', domain: 'kafanku.id', slug: 'paket-kafan-masjid', subdomain: null, url: 'https://kafanku.id/paket-kafan-masjid', is_active: true, created: tgl(78) },
     { id: 2, name: 'Tripwire Panduan Jenazah', brand: 'Kafanku', brand_id: '1', category: 'Tripwire', type: 'zip', mode: 'subdomain', domain: 'kafanku.id', slug: null, subdomain: 'panduan', url: 'https://panduan.kafanku.id', is_active: true, created: tgl(56) },
-    { id: 3, name: 'Katalog Grosir DKM', brand: "Al Ma'tsurat", brand_id: '2', category: 'Toko', type: 'zip', mode: 'root', domain: 'pusatkainkafan.com', slug: null, subdomain: null, url: 'https://pusatkainkafan.com', is_active: true, created: tgl(34) },
+    { id: 3, name: 'Katalog Grosir DKM', brand: 'Brand Premium', brand_id: '3', category: 'Toko', type: 'zip', mode: 'root', domain: 'pusatkainkafan.com', slug: null, subdomain: null, url: 'https://pusatkainkafan.com', is_active: true, created: tgl(34) },
     { id: 4, name: 'Promo Paket Premium', brand: 'Brand Premium', brand_id: '3', category: 'Iklan', type: 'html', mode: 'slug', domain: 'brandpremium.id', slug: 'promo-premium', subdomain: null, url: 'https://brandpremium.id/promo-premium', is_active: false, created: tgl(19) },
-    { id: 5, name: 'Template Dokumen RT', brand: "Al Ma'tsurat", brand_id: '2', category: 'Produk Digital', type: 'html', mode: 'slug', domain: 'kafanku.id', slug: 'template-rt', subdomain: null, url: 'https://kafanku.id/template-rt', is_active: true, created: tgl(7) },
+    { id: 5, name: 'Template Dokumen RT', brand: 'Brand Premium', brand_id: '3', category: 'Produk Digital', type: 'html', mode: 'slug', domain: 'kafanku.id', slug: 'template-rt', subdomain: null, url: 'https://kafanku.id/template-rt', is_active: true, created: tgl(7) },
 ];
 
 export const landingBuiltins = [
@@ -496,8 +495,8 @@ export const landingBuiltins = [
     { key: 'paket-ekonomis', name: 'Paket Ekonomis', brand: 'Kafanku', category: 'Iklan', url: 'https://kafanku.id/paket-ekonomis', is_active: true },
     { key: 'paket-ekonomis-order', name: 'Paket Ekonomis (Order)', brand: 'Kafanku', category: 'Iklan', url: 'https://kafanku.id/paket-ekonomis/order', is_active: true },
     { key: 'kafan-masjid', name: 'Kafan Masjid', brand: 'Kafanku', category: 'Iklan', url: 'https://kafanku.id/kafan-masjid', is_active: true },
-    { key: 'template-rt', name: 'Template RT', brand: "Al Ma'tsurat", category: 'Produk Digital', url: 'https://kafanku.id/template-rt', is_active: true },
-    { key: 'generator-surat-rt', name: 'Generator Surat RT', brand: "Al Ma'tsurat", category: 'Produk Digital', url: 'https://kafanku.id/generator-surat-rt', is_active: true },
+    { key: 'template-rt', name: 'Template RT', brand: 'Brand Premium', category: 'Produk Digital', url: 'https://kafanku.id/template-rt', is_active: true },
+    { key: 'generator-surat-rt', name: 'Generator Surat RT', brand: 'Brand Premium', category: 'Produk Digital', url: 'https://kafanku.id/generator-surat-rt', is_active: true },
     { key: 'bp-home', name: 'Beranda Brand Premium', brand: 'Brand Premium', category: 'Toko', url: 'https://brandpremium.id', is_active: true },
     { key: 'bp-katalog', name: 'Katalog Brand Premium', brand: 'Brand Premium', category: 'Toko', url: 'https://brandpremium.id/katalog', is_active: true },
     { key: 'bp-tripwire', name: 'Tripwire Brand Premium', brand: 'Brand Premium', category: 'Tripwire', url: 'https://brandpremium.id/promo', is_active: false },
@@ -533,7 +532,7 @@ export const customers = BUYERS.map((b, i) => ({
     name: b.name,
     phone: b.phone,
     email: b.email,
-    brands: [brands[i % 3].name, i % 4 === 0 ? brands[(i + 1) % 3].name : null].filter(Boolean).join(', '),
+    brands: [brands[i % brands.length].name, i % 4 === 0 ? brands[(i + 1) % brands.length].name : null].filter(Boolean).join(', '),
     types: i % 5 === 0 ? 'Fisik, Digital' : i % 7 === 0 ? 'Digital' : 'Fisik',
     orders: between(1, 18),
     total: between(850_000, 96_000_000),

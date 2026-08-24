@@ -163,7 +163,6 @@ function Donut({ segments, center, sub }) {
 export function DashboardView({ lang }) {
   const brands = [
     { name: t(lang, 'All Brands', 'Semua Brand'), active: true },
-    { name: "Al Ma'tsurat", dot: 'teal' },
     { name: t(lang, 'Premium Brand', 'Brand Premium'), dot: 'green' },
     { name: 'Kafanku', dot: 'indigo' },
   ];
