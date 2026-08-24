@@ -4,21 +4,12 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { useRef } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import portrait from '@/public/portrait.png';
-import {
-  ArrowDown,
-  ArrowUpRight,
-  User,
-  Compass,
-  Award,
-  Layers,
-  Camera,
-} from 'lucide-react';
+import portrait from '@/public/portrait.webp';
+import { ArrowUpRight, Compass, Award, Layers, Camera } from 'lucide-react';
 import { useLang, pick } from '@/lib/i18n';
 import { about, hub } from '@/lib/content';
 import Reveal from '@/components/Reveal';
 import Ambient from '@/components/Ambient';
-import MagneticButton from '@/components/MagneticButton';
 
 const ICONS = { Compass, Award, Layers, Camera };
 
@@ -42,14 +33,14 @@ function Hero({ lang }) {
   const headline = pick(about.headline, lang);
 
   return (
-    <section ref={ref} className="relative min-h-[100svh] overflow-hidden bg-ink pt-28 text-chalk sm:pt-32">
+    <section ref={ref} className="relative overflow-hidden bg-ink py-24 text-chalk sm:py-28 lg:min-h-[86svh] lg:py-0 lg:flex lg:items-center">
       <Ambient />
-      <div className="shell grid items-center gap-12 lg:grid-cols-[1.15fr_0.85fr]">
+      <div className="shell grid w-full items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <motion.div style={{ y, opacity }}>
           <Reveal>
             <span className="eyebrow text-muted">{pick(about.eyebrow, lang)}</span>
           </Reveal>
-          <h1 className="display mt-6 text-[12vw] leading-[0.98] sm:text-6xl md:text-7xl lg:text-[5rem]">
+          <h1 className="display mt-5 text-[8.5vw] leading-[1.02] sm:text-4xl md:text-5xl lg:text-[3.4rem]">
             {headline.map((line, i) => (
               <Reveal as="span" key={i} delay={0.08 * i} className="block">
                 <span className={i === headline.length - 1 ? 'text-muted' : 'text-chalk'}>{line}</span>
@@ -57,18 +48,7 @@ function Hero({ lang }) {
             ))}
           </h1>
           <Reveal delay={0.35}>
-            <p className="mt-8 max-w-xl text-lg leading-relaxed text-chalk-dim">{pick(about.sub, lang)}</p>
-          </Reveal>
-          <Reveal delay={0.45}>
-            <div className="mt-10 flex flex-wrap items-center gap-4">
-              <MagneticButton href="/about" variant="onDark">
-                {lang === 'en' ? 'Start with my story' : 'Mulai dari kisah saya'}
-                <ArrowUpRight size={16} />
-              </MagneticButton>
-              <MagneticButton href="#sections" variant="ghostDark">
-                {lang === 'en' ? 'Explore the hub' : 'Jelajahi pusat'}
-              </MagneticButton>
-            </div>
+            <p className="mt-6 max-w-lg text-base leading-relaxed text-chalk-dim">{pick(about.sub, lang)}</p>
           </Reveal>
         </motion.div>
 
@@ -81,6 +61,7 @@ function Hero({ lang }) {
                 alt={pick(about.name, lang)}
                 fill
                 priority
+                placeholder="blur"
                 sizes="(max-width: 640px) 90vw, 384px"
                 className="object-cover object-top transition-transform duration-700 ease-apple group-hover:scale-[1.03]"
               />
@@ -95,19 +76,6 @@ function Hero({ lang }) {
           </div>
         </Reveal>
       </div>
-
-      <motion.a
-        href="#sections"
-        style={{ opacity }}
-        className="absolute inset-x-0 bottom-8 flex justify-center"
-      >
-        <div className="flex flex-col items-center gap-2 text-muted">
-          <span className="text-[10px] uppercase tracking-[0.3em]">{pick(hub.eyebrow, lang)}</span>
-          <motion.span animate={{ y: [0, 6, 0] }} transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}>
-            <ArrowDown size={16} />
-          </motion.span>
-        </div>
-      </motion.a>
     </section>
   );
 }
