@@ -19,6 +19,8 @@ export default function PortfolioPage() {
         title={pick(K.title, lang)}
         tagline={pick(K.tagline, lang)}
         titleClass="text-6xl sm:text-7xl md:text-8xl"
+        logo={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/media/logo-kafanku.jpg`}
+        logoAlt="Kafanku"
       />
 
       {/* Meta strip + philosophy, white */}

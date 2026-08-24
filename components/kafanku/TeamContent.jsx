@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from 'react';
-import { Users, Sparkles, Play, Pause, Film, Eye, Images, Heart, MessageCircle, Send, MoreHorizontal, Music2, Instagram, TrendingUp } from 'lucide-react';
+import { Users, Sparkles, Play, Pause, Film, Eye, Images, Heart, MessageCircle, Send, MoreHorizontal, Music2, Instagram, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react';
 import { useLang, pick } from '@/lib/i18n';
 import { team, compare, arsenal, influencers, reelAccount, instagram } from '@/lib/contentAssets';
 import Reveal from '@/components/Reveal';
@@ -360,107 +360,187 @@ function VideoCard({ slug, badge, handle = reelAccount.handle, collab = reelAcco
         </span>
       </button>
 
-      {/* right action rail */}
-      <div className="pointer-events-none absolute bottom-24 right-2.5 flex flex-col items-center gap-4 text-white">
-        <RailIcon icon={Heart} label="12,4k" />
-        <RailIcon icon={MessageCircle} label="318" />
-        <RailIcon icon={Send} />
-        <RailIcon icon={MoreHorizontal} />
-        <span className="mt-1 flex h-7 w-7 items-center justify-center rounded-lg bg-white/20 ring-1 ring-white/40">
-          <Music2 size={13} />
+      {/* right action rail (no counts, heart shown as already liked) */}
+      <div className="pointer-events-none absolute bottom-20 right-2 flex flex-col items-center gap-4 text-white">
+        <Heart size={23} className="drop-shadow" style={{ fill: '#FF3040', color: '#FF3040' }} />
+        <MessageCircle size={23} className="drop-shadow" />
+        <Send size={22} className="drop-shadow" />
+        <MoreHorizontal size={22} className="drop-shadow" />
+        <span className="mt-0.5 flex h-7 w-7 items-center justify-center overflow-hidden rounded-lg ring-1 ring-white/50">
+          {kol ? (
+            <span className="flex h-full w-full items-center justify-center bg-white/20">
+              <Music2 size={12} />
+            </span>
+          ) : (
+            <img src={asset('/media/avatar-kafanku.jpg')} alt="" className="h-full w-full object-cover" loading="lazy" />
+          )}
         </span>
       </div>
 
       {/* bottom account + caption */}
-      <div className="absolute inset-x-0 bottom-0 px-3.5 pb-3.5 pr-14 text-white">
-        <div className="flex items-center gap-2">
-          {kol ? (
-            <Avatar type="kol" />
-          ) : (
-            <span className="flex items-center">
-              <Avatar type="pkk" />
-              {collab && <Avatar type="kafanku" className="-ml-2.5 ring-2 ring-black" />}
-            </span>
-          )}
-          <span className="text-[12.5px] font-semibold">{handle}</span>
-          {collab && !kol && <span className="text-[11px] text-white/70">& {collab}</span>}
-          <span className="rounded-md border border-white/50 px-2 py-0.5 text-[10px] font-semibold">Follow</span>
+      <div className="pointer-events-none absolute inset-x-0 bottom-0 pb-3.5 pl-3 pr-11 text-white">
+        <div className="flex min-w-0 items-center gap-1.5">
+          {kol ? <Avatar type="kol" size={24} /> : <CollabAvatars size={24} />}
+          <span className="min-w-0 truncate text-[9.5px] font-semibold leading-tight">
+            {handle}
+            {collab && !kol && <span className="font-normal text-white/85"> and {collab}</span>}
+          </span>
         </div>
-        {caption && <p className="mt-2 line-clamp-1 text-[11px] text-white/85">{caption}</p>}
+        {caption && <p className="mt-1.5 truncate text-[10.5px] text-white/80">{caption}</p>}
       </div>
     </div>
   );
 }
 
-function RailIcon({ icon: Icon, label }) {
-  return (
-    <span className="flex flex-col items-center gap-0.5">
-      <Icon size={22} className="drop-shadow" />
-      {label && <span className="text-[10px] font-medium">{label}</span>}
-    </span>
-  );
-}
-
-/* Profile avatars (placeholder monograms until the real logos are dropped in) */
-function Avatar({ type, className = '' }) {
-  if (type === 'pkk') {
+/* Profile avatars (real brand logos, square 1:1 masked into a circle) */
+function Avatar({ type, size = 26, className = '' }) {
+  const box = { width: size, height: size };
+  if (type === 'pkk' || type === 'kafanku') {
     return (
-      <span
-        className={`flex h-7 w-7 shrink-0 items-center justify-center overflow-hidden rounded-full ${className}`}
-        style={{ background: '#242a56' }}
-      >
-        <span className="text-[9px] font-bold leading-none" style={{ color: '#F6F2E8', fontFamily: 'Georgia, serif' }}>
-          PKK
-        </span>
-      </span>
-    );
-  }
-  if (type === 'kafanku') {
-    return (
-      <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white ${className}`}>
-        <span className="text-[13px] font-black leading-none" style={{ color: '#F4C22B' }}>
-          K
-        </span>
+      <span className={`shrink-0 overflow-hidden rounded-full bg-white ${className}`} style={box}>
+        <img src={asset(`/media/avatar-${type}.jpg`)} alt="" className="h-full w-full object-cover" loading="lazy" />
       </span>
     );
   }
   return (
-    <span className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/25 ${className}`}>
-      <Users size={13} className="text-white" />
+    <span className={`flex shrink-0 items-center justify-center rounded-full bg-white/25 ${className}`} style={box}>
+      <Users size={Math.round(size * 0.5)} className="text-white" />
     </span>
   );
 }
 
-/* ── swipeable image carousel (social post style) ── */
+/* The overlapping "collab" avatar pair used on brand posts */
+function CollabAvatars({ size = 26 }) {
+  return (
+    <span className="flex shrink-0 items-center">
+      <Avatar type="pkk" size={size} className="ring-2 ring-black/60" />
+      <Avatar type="kafanku" size={size} className="-ml-2.5 ring-2 ring-black/60" />
+    </span>
+  );
+}
+
+/* ── Instagram post carousel: swipe on mobile, arrows/drag on desktop ── */
 function CarouselCard({ slug, count }) {
-  const [idx, setIdx] = useState(1);
+  const [idx, setIdx] = useState(0);
   const ref = useRef(null);
+  const drag = useRef({ down: false, startX: 0, startScroll: 0, moved: false });
+
   const onScroll = () => {
     const el = ref.current;
     if (!el) return;
-    const per = el.scrollWidth / count;
-    setIdx(Math.min(count, Math.round(el.scrollLeft / per) + 1));
+    setIdx(Math.max(0, Math.min(count - 1, Math.round(el.scrollLeft / el.clientWidth))));
   };
+
+  const goTo = (i) => {
+    const el = ref.current;
+    if (!el) return;
+    const next = Math.max(0, Math.min(count - 1, i));
+    el.scrollTo({ left: next * el.clientWidth, behavior: 'smooth' });
+    setIdx(next);
+  };
+
+  // Pointer drag so a desktop mouse can swipe too
+  const onPointerDown = (e) => {
+    const el = ref.current;
+    if (!el) return;
+    drag.current = { down: true, startX: e.clientX, startScroll: el.scrollLeft, moved: false };
+    el.setPointerCapture?.(e.pointerId);
+  };
+  const onPointerMove = (e) => {
+    const el = ref.current;
+    if (!el || !drag.current.down) return;
+    const dx = e.clientX - drag.current.startX;
+    if (Math.abs(dx) > 3) drag.current.moved = true;
+    el.scrollLeft = drag.current.startScroll - dx;
+  };
+  const onPointerUp = () => {
+    const el = ref.current;
+    if (!el || !drag.current.down) return;
+    drag.current.down = false;
+    goTo(Math.round(el.scrollLeft / el.clientWidth));
+  };
+
   return (
-    <div className="relative mx-auto aspect-[4/5] w-full max-w-[300px] overflow-hidden rounded-2xl bg-black shadow-md ring-1 ring-black/5">
-      <div ref={ref} onScroll={onScroll} className="no-scrollbar flex h-full snap-x snap-mandatory overflow-x-auto">
-        {Array.from({ length: count }).map((_, i) => (
-          <img
-            key={i}
-            src={asset(`/media/${slug}-${i + 1}.jpg`)}
-            alt=""
-            loading="lazy"
-            className="h-full w-full flex-none snap-center object-cover"
-          />
-        ))}
+    <div className="mx-auto w-full max-w-[300px] overflow-hidden rounded-2xl bg-black shadow-md ring-1 ring-black/5">
+      {/* IG post header */}
+      <div className="flex items-center gap-2 px-3 py-2.5">
+        <CollabAvatars size={26} />
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-[11px] font-semibold leading-tight text-white">
+            {reelAccount.handle}
+            <span className="font-normal text-white/85"> and {reelAccount.collab}</span>
+          </p>
+          <p className="flex items-center gap-1 truncate text-[9.5px] leading-tight text-white/70">
+            <Music2 size={9} /> {reelAccount.audio}
+          </p>
+        </div>
+        <MoreHorizontal size={16} className="shrink-0 text-white/80" />
       </div>
-      <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-md">
-        <Images size={11} /> {idx}/{count}
-      </span>
-      <div className="pointer-events-none absolute inset-x-0 bottom-3 flex justify-center gap-1.5">
-        {Array.from({ length: count }).map((_, i) => (
-          <span key={i} className={`h-1.5 rounded-full transition-all ${i + 1 === idx ? 'w-4 bg-white' : 'w-1.5 bg-white/50'}`} />
-        ))}
+
+      {/* slides */}
+      <div className="relative aspect-[4/5] w-full">
+        <div
+          ref={ref}
+          onScroll={onScroll}
+          onPointerDown={onPointerDown}
+          onPointerMove={onPointerMove}
+          onPointerUp={onPointerUp}
+          onPointerCancel={onPointerUp}
+          className="no-scrollbar flex h-full w-full cursor-grab snap-x snap-mandatory overflow-x-auto overscroll-x-contain active:cursor-grabbing"
+        >
+          {Array.from({ length: count }).map((_, i) => (
+            <img
+              key={i}
+              src={asset(`/media/${slug}-${i + 1}.jpg`)}
+              alt=""
+              loading="lazy"
+              draggable={false}
+              className="h-full w-full flex-none snap-center select-none object-cover"
+            />
+          ))}
+        </div>
+
+        {/* counter */}
+        <span className="pointer-events-none absolute right-3 top-3 flex items-center gap-1 rounded-full bg-black/55 px-2.5 py-1 text-[10px] font-medium text-white backdrop-blur-md">
+          <Images size={11} /> {idx + 1}/{count}
+        </span>
+
+        {/* desktop arrows */}
+        {idx > 0 && (
+          <button
+            onClick={() => goTo(idx - 1)}
+            aria-label="Previous slide"
+            className="absolute left-2 top-1/2 hidden h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-black shadow transition hover:bg-white sm:flex"
+          >
+            <ChevronLeft size={17} />
+          </button>
+        )}
+        {idx < count - 1 && (
+          <button
+            onClick={() => goTo(idx + 1)}
+            aria-label="Next slide"
+            className="absolute right-2 top-1/2 hidden h-7 w-7 -translate-y-1/2 items-center justify-center rounded-full bg-white/85 text-black shadow transition hover:bg-white sm:flex"
+          >
+            <ChevronRight size={17} />
+          </button>
+        )}
+      </div>
+
+      {/* IG action bar */}
+      <div className="flex items-center gap-3.5 px-3 py-2.5 text-white">
+        <Heart size={19} style={{ fill: '#FF3040', color: '#FF3040' }} />
+        <MessageCircle size={19} />
+        <Send size={18} />
+        <div className="flex flex-1 justify-center gap-1">
+          {Array.from({ length: count }).map((_, i) => (
+            <button
+              key={i}
+              onClick={() => goTo(i)}
+              aria-label={`Go to slide ${i + 1}`}
+              className={`h-1.5 rounded-full transition-all ${i === idx ? 'w-1.5 bg-white' : 'w-1.5 bg-white/35'}`}
+            />
+          ))}
+        </div>
       </div>
     </div>
   );

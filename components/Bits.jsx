@@ -39,7 +39,7 @@ export function BackToHub() {
 /**
  * Standard light detail-page hero: back link, icon + eyebrow, big title, tagline.
  */
-export function DetailHero({ icon, eyebrow, title, tagline, titleClass = '' }) {
+export function DetailHero({ icon, eyebrow, title, tagline, titleClass = '', logo, logoAlt = '' }) {
   return (
     <section className="relative overflow-hidden border-b border-appleline/50 bg-white pt-28 pb-16 sm:pt-32 sm:pb-20">
       {/* soft top glow */}
@@ -56,6 +56,16 @@ export function DetailHero({ icon, eyebrow, title, tagline, titleClass = '' }) {
             <SectionKicker icon={icon} eyebrow={eyebrow} />
           </div>
         </Reveal>
+        {logo && (
+          <Reveal delay={0.08}>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={logo}
+              alt={logoAlt}
+              className="mt-7 h-20 w-20 rounded-2xl object-cover shadow-sm ring-1 ring-black/[0.06] sm:h-24 sm:w-24"
+            />
+          </Reveal>
+        )}
         <Reveal delay={0.1}>
           <h1 className={`display mt-6 text-appleink ${titleClass || 'text-5xl sm:text-6xl md:text-7xl'}`}>
             {title}
