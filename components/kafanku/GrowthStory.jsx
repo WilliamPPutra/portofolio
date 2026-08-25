@@ -13,6 +13,7 @@ import {
   Zap,
   Trophy,
   Sparkles,
+  AlertTriangle,
 } from 'lucide-react';
 import { useLang, pick } from '@/lib/i18n';
 import { BRAND, growth as G } from '@/lib/kafankuData';
@@ -211,16 +212,17 @@ export default function GrowthStory() {
           </div>
         </Reveal>
 
-        {/* META CTWA, full width, blue, with the narrative */}
+        {/* META CTWA, full width, blue. ROAS is read against break-even, never in isolation. */}
         <Reveal delay={0.05}>
           <div
             className="relative mt-6 overflow-hidden rounded-[2rem] p-8 text-white sm:p-10"
             style={{ background: `linear-gradient(135deg, ${BRAND.meta}, ${BRAND.metaDeep})` }}
           >
             <div className="pointer-events-none absolute -left-16 -bottom-16 h-64 w-64 rounded-full bg-white/10 blur-3xl" />
-            <div className="relative grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:items-center">
+
+            <div className="relative grid min-w-0 gap-8 lg:grid-cols-[1fr_1.05fr] lg:items-start">
               {/* Narrative */}
-              <div>
+              <div className="min-w-0">
                 <PlatformChip label="Meta Ads · CTWA" color="#ffffff22" />
                 <h3 className="display mt-4 text-3xl sm:text-4xl">
                   {t(lang, 'Not impulse buying. Conviction selling.', 'Bukan impulse buying. Tapi meyakinkan.')}
@@ -228,27 +230,89 @@ export default function GrowthStory() {
                 <p className="mt-4 text-sm leading-relaxed text-white/80">
                   {t(
                     lang,
-                    'Most products checkout on a landing page, so a ROAS shows up right on the Meta dashboard. This category is different. A shroud kit is a considered, emotional purchase, so we use CTWA (Click To WhatsApp): the ad starts a conversation, and we convince and explain in detail on WhatsApp first. The dashboard measures leads, not a direct ROAS.',
-                    'Kebanyakan produk checkout di landing page, jadi ROAS langsung muncul di dashboard Meta. Kategori ini beda. Kain kafan adalah pembelian yang penuh pertimbangan dan emosional, jadi kami pakai CTWA (Click To WhatsApp): iklan memulai percakapan, lalu kami yakinkan dan jelaskan detail dulu di WhatsApp. Dashboard mengukur leads, bukan ROAS langsung.'
+                    'Most products check out on a landing page, so ROAS shows up right on the Meta dashboard. This category is different. A shroud kit is a considered, emotional purchase, so we run CTWA (Click To WhatsApp): the ad starts a conversation and we explain in detail before anyone commits. The dashboard only ever sees leads, so I reconciled ad spend against the channel P&L to get the ROAS the dashboard cannot report.',
+                    'Kebanyakan produk checkout di landing page, jadi ROAS langsung muncul di dashboard Meta. Kategori ini beda. Kain kafan adalah pembelian yang penuh pertimbangan dan emosional, jadi kami pakai CTWA (Click To WhatsApp): iklan memulai percakapan, lalu kami jelaskan detailnya sebelum orang memutuskan. Dashboard hanya melihat leads, jadi saya rekonsiliasi belanja iklan dengan laporan laba rugi kanal untuk mendapat ROAS yang tidak bisa dilaporkan dashboard.'
                   )}
                 </p>
-                <div className="mt-6 inline-flex items-center gap-2 rounded-2xl bg-white/10 px-4 py-3">
-                  <TrendingUp size={18} className="text-white" />
-                  <span className="text-sm text-white/80">{t(lang, 'Best month revenue lift', 'Kenaikan pendapatan terbaik')}:</span>
-                  <span className="text-2xl font-bold">{G.meta.revLift}</span>
-                  <span className="text-xs text-white/60">{t(lang, 'MoM (April peak)', 'MoM (puncak April)')}</span>
-                </div>
+                <p className="mt-3 text-sm leading-relaxed text-white/80">
+                  {t(
+                    lang,
+                    'A 4x ROAS is not a weak number here, it is a deliberate one. Marketplace ads harvest demand that already exists and cap out fast. CTWA creates demand for a product nobody searches for until they need it. I traded headline ROAS for a bigger market, and judged every month against the margin line that decides whether the spend was worth it.',
+                    'ROAS 4x di sini bukan angka lemah, tapi angka yang disengaja. Iklan marketplace memanen permintaan yang sudah ada dan cepat mentok. CTWA menciptakan permintaan untuk produk yang tidak dicari orang sampai mereka membutuhkannya. Saya menukar ROAS di atas kertas dengan pasar yang lebih besar, dan menilai tiap bulan terhadap garis margin yang menentukan layak tidaknya belanja iklan itu.'
+                  )}
+                </p>
               </div>
 
-              {/* Metrics grid */}
-              <div className="grid grid-cols-2 gap-3">
-                <MetaStat icon={MessageCircle} label={t(lang, 'WhatsApp leads', 'Leads WhatsApp')} value={G.meta.leads} />
-                <MetaStat icon={Eye} label={t(lang, 'Reach', 'Jangkauan')} value={G.meta.reach} />
-                <MetaStat icon={Zap} label={t(lang, 'Impressions', 'Impresi')} value={G.meta.impressions} />
-                <MetaStat icon={MousePointerClick} label={t(lang, 'Link clicks', 'Klik')} value={G.meta.clicks} />
-                <MetaStat icon={Target} label="CTR" value={G.meta.ctr} />
-                <MetaStat icon={Trophy} label={t(lang, 'Top campaign leads', 'Leads kampanye teratas')} value={G.meta.flagshipLeads} highlight />
+              {/* The ledger: ROAS always shown against its break-even */}
+              <div className="min-w-0 rounded-3xl bg-black/20 p-6 ring-1 ring-white/15">
+                <div className="flex flex-wrap items-baseline justify-between gap-2">
+                  <p className="text-[11px] uppercase tracking-[0.14em] text-white/60">
+                    {t(lang, 'Channel ROAS, reconciled', 'ROAS kanal, hasil rekonsiliasi')}
+                  </p>
+                  <p className="text-[11px] text-white/50">{pick(G.meta.roas.period, lang)}</p>
+                </div>
+
+                <div className="mt-4 flex flex-wrap items-end gap-x-6 gap-y-3">
+                  <div>
+                    <p className="display text-5xl leading-none">{G.meta.roas.blended}x</p>
+                    <p className="mt-1.5 text-[11px] text-white/60">{t(lang, 'Blended', 'Gabungan')}</p>
+                  </div>
+                  <div className="h-10 w-px bg-white/20" />
+                  <div>
+                    <p className="text-2xl font-semibold leading-none text-rose-300">{G.meta.roas.bep}x</p>
+                    <p className="mt-1.5 text-[11px] text-white/60">{t(lang, 'Break-even', 'Titik impas')}</p>
+                  </div>
+                  <div className="h-10 w-px bg-white/20" />
+                  <div>
+                    <p className="text-2xl font-semibold leading-none">{G.meta.roas.headroom}</p>
+                    <p className="mt-1.5 text-[11px] text-white/60">{t(lang, 'Above the line', 'Di atas garis')}</p>
+                  </div>
+                </div>
+
+                <RoasChart rows={G.meta.roas.monthly} bepNum={2.53} bepLabel={G.meta.roas.bep} lang={lang} />
+
+                <p className="mt-5 border-t border-white/15 pt-4 text-xs leading-relaxed text-white/65">
+                  {t(
+                    lang,
+                    `Break-even is set by the ${G.meta.roas.margin} gross margin on this channel. After ad spend, the channel still contributed ${G.meta.roas.contribution} of its own revenue as gross profit.`,
+                    `Titik impas ditentukan oleh margin kotor kanal ini sebesar ${G.meta.roas.margin}. Setelah belanja iklan, kanal ini tetap menyumbang ${G.meta.roas.contribution} dari omzetnya sendiri sebagai laba kotor.`
+                  )}
+                </p>
               </div>
+            </div>
+
+            {/* The two months worth explaining instead of hiding */}
+            <div className="relative mt-6 grid gap-3 sm:grid-cols-2">
+              <MetaNote
+                icon={TrendingUp}
+                tone="up"
+                title={t(lang, 'April: scaling beat optimising', 'April: scale mengalahkan optimasi')}
+                body={t(
+                  lang,
+                  `Spend went up roughly ${G.meta.notes.scale.spendMult} against March. ROAS fell ${G.meta.notes.scale.roasDelta}, and revenue still climbed ${G.meta.notes.scale.revDelta}. Protecting a prettier ratio would have left the biggest month on the table.`,
+                  `Belanja iklan naik sekitar ${G.meta.notes.scale.spendMult} dibanding Maret. ROAS turun ${G.meta.notes.scale.roasDelta}, tapi omzet tetap naik ${G.meta.notes.scale.revDelta}. Menjaga rasio yang lebih cantik justru akan menyisakan bulan terbesar di meja.`
+                )}
+              />
+              <MetaNote
+                icon={AlertTriangle}
+                tone="down"
+                title={t(lang, 'July: the month it dipped', 'Juli: bulan saat ROAS turun')}
+                body={t(
+                  lang,
+                  `July closed at ${G.meta.notes.fatigue.roas}x, around ${G.meta.notes.fatigue.gap} under break-even and the only month below the line. The read is creative fatigue: spend held steady while the same audiences kept meeting the same angles. Worth naming, because the fix is a production cadence, not a bid adjustment.`,
+                  `Juli ditutup di ${G.meta.notes.fatigue.roas}x, sekitar ${G.meta.notes.fatigue.gap} di bawah titik impas dan satu-satunya bulan di bawah garis. Bacaannya creative fatigue: belanja iklan stabil sementara audiens yang sama terus bertemu angle yang sama. Layak disebut, karena solusinya ada di ritme produksi konten, bukan di penyesuaian bid.`
+                )}
+              />
+            </div>
+
+            {/* Reach and lead volume behind the ratio */}
+            <div className="relative mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3">
+              <MetaStat icon={MessageCircle} label={t(lang, 'WhatsApp leads', 'Leads WhatsApp')} value={G.meta.leads} />
+              <MetaStat icon={Eye} label={t(lang, 'Reach', 'Jangkauan')} value={G.meta.reach} />
+              <MetaStat icon={Zap} label={t(lang, 'Impressions', 'Impresi')} value={G.meta.impressions} />
+              <MetaStat icon={MousePointerClick} label={t(lang, 'Link clicks', 'Klik')} value={G.meta.clicks} />
+              <MetaStat icon={Target} label="CTR" value={G.meta.ctr} />
+              <MetaStat icon={Trophy} label={t(lang, 'Top campaign leads', 'Leads kampanye teratas')} value={G.meta.flagshipLeads} highlight />
             </div>
           </div>
         </Reveal>
@@ -413,6 +477,63 @@ function MetaStat({ icon: Icon, label, value, highlight }) {
         <span className="text-[11px] font-medium">{label}</span>
       </div>
       <p className="mt-1.5 text-2xl font-bold">{value}</p>
+    </div>
+  );
+}
+
+/* Monthly ROAS against the break-even line. A bar under the dashed line is a
+   month the spend did not pay for itself, so it is coloured, not hidden. */
+function RoasChart({ rows, bepNum, bepLabel, lang }) {
+  const max = 8.2; // headroom so the tallest bar and its label both fit
+  return (
+    <div className="mt-6">
+      <div className="relative h-32">
+        <div
+          className="pointer-events-none absolute inset-x-0 border-t border-dashed border-rose-300/70"
+          style={{ bottom: `${(bepNum / max) * 100}%` }}
+        >
+          <span className="absolute -top-2.5 right-0 rounded bg-rose-400/25 px-1.5 py-0.5 text-[9px] font-medium text-rose-100">
+            {t(lang, 'Break-even', 'Impas')} {bepLabel}x
+          </span>
+        </div>
+        <div className="flex h-full items-end gap-1.5">
+          {rows.map((r) => {
+            const below = r.v < bepNum;
+            return (
+              <div key={r.m} className="flex h-full min-w-0 flex-1 flex-col justify-end">
+                <span className="mb-1 text-center text-[10px] font-semibold tabular-nums text-white/90">
+                  {r.v.toFixed(2).replace('.', ',')}
+                </span>
+                <div
+                  className="w-full rounded-t-md"
+                  style={{
+                    height: `${(r.v / max) * 100}%`,
+                    background: below ? '#fda4af' : 'rgba(255,255,255,0.92)',
+                  }}
+                />
+              </div>
+            );
+          })}
+        </div>
+      </div>
+      <div className="mt-2 flex gap-1.5">
+        {rows.map((r) => (
+          <span key={r.m} className="min-w-0 flex-1 text-center text-[10px] text-white/55">{r.m}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function MetaNote({ icon: Icon, tone, title, body }) {
+  const down = tone === 'down';
+  return (
+    <div className={`min-w-0 rounded-2xl p-5 ring-1 ${down ? 'bg-rose-400/10 ring-rose-300/25' : 'bg-white/10 ring-white/15'}`}>
+      <div className={`flex items-center gap-2 ${down ? 'text-rose-200' : 'text-white'}`}>
+        <Icon size={15} />
+        <p className="text-sm font-semibold">{title}</p>
+      </div>
+      <p className="mt-2 text-xs leading-relaxed text-white/70">{body}</p>
     </div>
   );
 }
