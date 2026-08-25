@@ -1,6 +1,6 @@
 'use client';
 
-import { Award, Recycle, Boxes, Sparkles, TrendingUp, TrendingDown } from 'lucide-react';
+import { Award, TrendingUp, TrendingDown } from 'lucide-react';
 import { useLang, pick } from '@/lib/i18n';
 import { kafanku as K } from '@/lib/content';
 import Reveal from '@/components/Reveal';
@@ -64,19 +64,6 @@ export default function PortfolioPage() {
                     {lang === 'en' ? 'Paket Premium · the flagship kit' : 'Paket Premium · paket unggulan'}
                   </figcaption>
                 </figure>
-
-                <div className="mt-4 grid grid-cols-2 gap-4">
-                <div className="rounded-3xl border border-appleline/60 bg-applegray p-6">
-                  <p className="text-base font-semibold">{lang === 'en' ? 'Premium sister brand' : 'Brand kakak premium'}</p>
-                  <p className="mt-1 text-sm text-applesub">{lang === 'en' ? 'The “iPhone”' : 'Sang “iPhone”'}</p>
-                  <p className="mt-4 text-xs text-applesub">{lang === 'en' ? 'Premium · aspirational' : 'Premium · aspiratif'}</p>
-                </div>
-                <div className="rounded-3xl bg-appleink p-6 text-chalk">
-                  <p className="text-base font-semibold text-white">Kafanku</p>
-                  <p className="mt-1 text-sm text-chalk-dim">{lang === 'en' ? 'The “mid-tier Android”' : '“Android menengah”'}</p>
-                  <p className="mt-4 text-xs text-muted">{lang === 'en' ? 'Reachable · wider market' : 'Terjangkau · pasar luas'}</p>
-                </div>
-                </div>
               </div>
             </Reveal>
           </div>
@@ -115,21 +102,6 @@ export default function PortfolioPage() {
                   </figcaption>
                 </figure>
 
-                {[
-                  { i: Recycle, t: lang === 'en' ? 'Premium off-cuts' : 'Sisa kain premium', s: lang === 'en' ? 'Warehouse waste' : 'Limbah gudang' },
-                  { i: Boxes, t: lang === 'en' ? 'BOM assembly' : 'Perakitan BOM', s: lang === 'en' ? 'Auto stock deduction' : 'Potong stok otomatis' },
-                  { i: Sparkles, t: 'Paket Ekonomis', s: lang === 'en' ? 'High-margin SKU' : 'SKU margin tinggi', hi: true },
-                ].map((n, i) => (
-                  <div key={i} className={`flex items-center gap-4 rounded-2xl border p-4 ${n.hi ? 'border-white/20 bg-white/[0.08]' : 'border-white/10 bg-white/[0.03]'}`}>
-                    <span className="flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-white">
-                      <n.i size={18} strokeWidth={1.5} />
-                    </span>
-                    <div>
-                      <p className="text-sm font-semibold text-white">{n.t}</p>
-                      <p className="text-xs text-muted">{n.s}</p>
-                    </div>
-                  </div>
-                ))}
               </div>
             </div>
           </Reveal>
@@ -230,16 +202,16 @@ export default function PortfolioPage() {
           <Chapter n={K.ch5.n} kicker={pick(K.ch5.kicker, lang)} title={pick(K.ch5.title, lang)}>
             <p className="max-w-2xl text-lg leading-relaxed text-appleink/75">{pick(K.ch5.body, lang)}</p>
 
-            <div className="mt-12 grid gap-y-8 border-t border-appleink/80 pt-8 sm:grid-cols-2 lg:grid-cols-4">
+            <dl className="mt-12 border-t border-appleink/80">
               {K.ch5.outcomes.map((o, i) => (
-                <Reveal key={i} delay={0.05 * i}>
-                  <div className="lg:border-l lg:border-appleline/60 lg:pl-6 lg:first:border-l-0 lg:first:pl-0">
-                    <p className="text-[11px] uppercase tracking-[0.14em] text-applesub">{pick(o.k, lang)}</p>
-                    <p className="display mt-2 text-xl text-appleink">{pick(o.v, lang)}</p>
+                <Reveal key={i} delay={0.05 * i} className="block border-b border-appleline/60">
+                  <div className="grid gap-1 py-5 sm:grid-cols-[minmax(0,14rem)_1fr] sm:items-baseline sm:gap-8">
+                    <dt className="text-[11px] uppercase tracking-[0.14em] text-applesub">{pick(o.k, lang)}</dt>
+                    <dd className="text-lg font-medium text-appleink">{pick(o.v, lang)}</dd>
                   </div>
                 </Reveal>
               ))}
-            </div>
+            </dl>
           </Chapter>
         </div>
       </section>
