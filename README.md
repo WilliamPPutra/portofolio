@@ -25,7 +25,7 @@ homepage tiles → product pages.
 | `/about` | **About Me** — the Journey (Groundwork → Growth → Leadership) + ethos | Light |
 | `/portfolio` | **Portfolio** — Kafanku case study (philosophy → circular innovation → pivot → result) | Light + black band |
 | `/projects` | **Projects** — Commerce OS bands + lead magnets | Light + alternating bands |
-| `/photoshoot` | **Photo Shoot Project** — commercial modeling (intro, categories, gallery) | Light + dark band |
+| `/side-job` | **Side Job** — freelance model for product photography, masonry gallery with a click-to-view lightbox | Light + gray gallery |
 
 The sticky glass nav uses route links with an active-state pill. Text is light while
 over the homepage's black hero, dark on the light detail pages. Each section/card has
