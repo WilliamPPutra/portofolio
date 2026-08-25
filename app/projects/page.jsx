@@ -32,6 +32,17 @@ const GAME_URL = `${base}/games/kepulanganku/index.html`;
 
 const t = (lang, en, id) => (lang === 'id' ? id : en);
 
+// Fixed star field for the game poster. Hardcoded so it renders identically on
+// the server and the client.
+const STARS = [
+  { x: 8, y: 14, r: 2, o: 0.7 }, { x: 17, y: 32, r: 1, o: 0.5 }, { x: 24, y: 9, r: 1, o: 0.6 },
+  { x: 31, y: 22, r: 2, o: 0.45 }, { x: 39, y: 6, r: 1, o: 0.7 }, { x: 46, y: 17, r: 1, o: 0.4 },
+  { x: 54, y: 11, r: 2, o: 0.6 }, { x: 62, y: 26, r: 1, o: 0.5 }, { x: 69, y: 8, r: 1, o: 0.65 },
+  { x: 76, y: 19, r: 2, o: 0.5 }, { x: 84, y: 12, r: 1, o: 0.6 }, { x: 91, y: 28, r: 1, o: 0.45 },
+  { x: 12, y: 44, r: 1, o: 0.4 }, { x: 35, y: 38, r: 1, o: 0.35 }, { x: 58, y: 41, r: 1, o: 0.4 },
+  { x: 80, y: 37, r: 1, o: 0.35 }, { x: 95, y: 47, r: 1, o: 0.3 }, { x: 4, y: 25, r: 1, o: 0.5 },
+];
+
 export default function ProjectsPage() {
   const { lang } = useLang();
   const os = P.os;
@@ -252,29 +263,65 @@ function GamePreview({ lang }) {
           </div>
         </div>
 
-        {/* the actual game, loaded only when scrolled near, preview only */}
-        <div className="relative bg-black" style={{ height: 560 }}>
-          <iframe
-            src={GAME_URL}
-            title="Kepulanganku"
-            loading="lazy"
-            tabIndex={-1}
-            scrolling="no"
-            className="h-full w-full border-0"
-            style={{ pointerEvents: 'none' }}
+        {/* Title-screen poster. The game itself is never loaded here, so it can
+            never start its music. Sound only happens once the game is opened. */}
+        <a
+          href={GAME_URL}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative flex items-center justify-center overflow-hidden"
+          style={{ height: 560, background: 'linear-gradient(180deg,#10162B 0%,#1A2340 55%,#2B1B3A 100%)' }}
+        >
+          {/* night sky */}
+          <span className="pointer-events-none absolute inset-0 opacity-70" aria-hidden>
+            {STARS.map((s, i) => (
+              <span
+                key={i}
+                className="absolute rounded-full bg-white"
+                style={{ left: `${s.x}%`, top: `${s.y}%`, width: s.r, height: s.r, opacity: s.o }}
+              />
+            ))}
+          </span>
+          {/* moon glow behind the title */}
+          <span
+            className="pointer-events-none absolute h-[360px] w-[360px] rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(244,194,43,0.16), rgba(244,194,43,0) 68%)' }}
+            aria-hidden
           />
-          <a
-            href={GAME_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group absolute inset-0 flex items-end justify-center bg-gradient-to-t from-black/60 via-transparent to-transparent pb-8"
-          >
-            <span className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold text-appleink shadow-xl transition-transform group-hover:scale-105">
-              <Play size={16} className="fill-appleink" />
+          {/* horizon */}
+          <span
+            className="pointer-events-none absolute inset-x-0 bottom-0 h-28"
+            style={{ background: 'linear-gradient(180deg, rgba(7,9,15,0) 0%, #07090F 78%)' }}
+            aria-hidden
+          />
+
+          <span className="relative flex flex-col items-center text-center">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`${base}/media/avatar-kafanku.jpg`}
+              alt="Kafanku"
+              width={64}
+              height={64}
+              loading="lazy"
+              className="h-14 w-14 rounded-2xl object-cover shadow-lg"
+            />
+            <span className="display mt-5 text-5xl text-[#F6F2E8]">
+              Kepulangan<span style={{ color: '#F4C22B' }}>ku</span>
+            </span>
+            <span className="mt-2 text-[11px] uppercase tracking-[0.3em]" style={{ color: '#9aa2bd' }}>
+              {t(lang, 'Educational game · Kafanku', 'Gim edukasi · Kafanku')}
+            </span>
+
+            <span className="mt-8 inline-flex items-center gap-2 rounded-full px-7 py-3.5 text-sm font-bold text-[#10162B] shadow-xl transition-transform group-hover:scale-105"
+              style={{ background: '#F4C22B' }}>
+              <Play size={16} className="fill-[#10162B]" />
               {t(lang, 'Play the real game', 'Mainkan game aslinya')}
             </span>
-          </a>
-        </div>
+            <span className="mt-3 text-[11px]" style={{ color: '#6B7690' }}>
+              {t(lang, 'Opens in a new tab, with sound', 'Terbuka di tab baru, dengan suara')}
+            </span>
+          </span>
+        </a>
       </div>
     </FixedScale>
   );
