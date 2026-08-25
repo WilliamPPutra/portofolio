@@ -13,7 +13,7 @@ import {
   Zap,
   Trophy,
   Sparkles,
-  AlertTriangle,
+  ShieldCheck,
 } from 'lucide-react';
 import { useLang, pick } from '@/lib/i18n';
 import { BRAND, growth as G } from '@/lib/kafankuData';
@@ -269,7 +269,7 @@ export default function GrowthStory() {
                   </div>
                 </div>
 
-                <RoasChart rows={G.meta.roas.monthly} bepNum={2.53} bepLabel={G.meta.roas.bep} lang={lang} />
+                <RoasChart rows={G.meta.roas.monthly} bepNum={G.meta.roas.bepNum} bepLabel={G.meta.roas.bep} lang={lang} />
 
                 <p className="mt-5 border-t border-white/15 pt-4 text-xs leading-relaxed text-white/65">
                   {t(
@@ -294,13 +294,13 @@ export default function GrowthStory() {
                 )}
               />
               <MetaNote
-                icon={AlertTriangle}
-                tone="down"
-                title={t(lang, 'July: the month it dipped', 'Juli: bulan saat ROAS turun')}
+                icon={ShieldCheck}
+                tone="up"
+                title={t(lang, 'Consistency, not one lucky month', 'Konsisten, bukan sekali beruntung')}
                 body={t(
                   lang,
-                  `July closed at ${G.meta.notes.fatigue.roas}x, around ${G.meta.notes.fatigue.gap} under break-even and the only month below the line. The read is creative fatigue: spend held steady while the same audiences kept meeting the same angles. Worth naming, because the fix is a production cadence, not a bid adjustment.`,
-                  `Juli ditutup di ${G.meta.notes.fatigue.roas}x, sekitar ${G.meta.notes.fatigue.gap} di bawah titik impas dan satu-satunya bulan di bawah garis. Bacaannya creative fatigue: belanja iklan stabil sementara audiens yang sama terus bertemu angle yang sama. Layak disebut, karena solusinya ada di ritme produksi konten, bukan di penyesuaian bid.`
+                  `All ${G.meta.roas.months} months closed above break-even, the tightest at ${G.meta.roas.lowest}x. Holding a channel above its margin line every single month is a harder result than one spectacular peak, and it is the reason spend could keep growing.`,
+                  `Seluruh ${G.meta.roas.months} bulan ditutup di atas titik impas, yang paling ketat di ${G.meta.roas.lowest}x. Menjaga kanal tetap di atas garis margin setiap bulan itu hasil yang lebih sulit daripada satu puncak spektakuler, dan justru itu alasan belanja iklan bisa terus dinaikkan.`
                 )}
               />
             </div>
