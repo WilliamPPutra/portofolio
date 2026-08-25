@@ -22,7 +22,6 @@ export default function Footer() {
           <div className="mt-10 flex flex-wrap items-center gap-4">
             <MagneticButton href={`mailto:${email}`} variant="onDark">
               {lang === 'en' ? 'Contact me' : 'Hubungi Saya'}
-              <ArrowUpRight size={16} />
             </MagneticButton>
           </div>
         </Reveal>

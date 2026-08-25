@@ -51,13 +51,20 @@ export default function Nav() {
             {/* Brand mark */}
             <Link href="/" className="group flex items-center gap-2.5">
               <span
-                className={`flex h-7 w-7 items-center justify-center rounded-full border text-[11px] font-semibold tracking-tight transition-colors ${
+                className={`block h-8 w-8 overflow-hidden rounded-full border transition-colors ${
                   overHero
-                    ? 'border-white/25 text-chalk group-hover:border-white/50'
-                    : 'border-appleink/20 text-appleink group-hover:border-appleink/50'
+                    ? 'border-white/25 group-hover:border-white/50'
+                    : 'border-appleink/15 group-hover:border-appleink/40'
                 }`}
               >
-                W
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`${process.env.NEXT_PUBLIC_BASE_PATH || ''}/avatar.webp`}
+                  alt={pick(nav.brand, lang)}
+                  width={64}
+                  height={64}
+                  className="h-full w-full object-cover object-top"
+                />
               </span>
               <span
                 className={`hidden text-sm font-medium tracking-tight transition-colors sm:block ${

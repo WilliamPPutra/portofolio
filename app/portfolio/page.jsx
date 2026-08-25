@@ -229,8 +229,8 @@ export default function PortfolioPage() {
    the narrative runs down the right. No cards, just type and hairlines. */
 function Chapter({ n, kicker, title, children }) {
   return (
-    <div className="grid gap-8 lg:grid-cols-[minmax(0,22rem)_1fr] lg:gap-16">
-      <Reveal>
+    <div className="grid min-w-0 gap-8 lg:grid-cols-[minmax(0,22rem)_minmax(0,1fr)] lg:gap-16">
+      <Reveal className="min-w-0">
         <div className="lg:sticky lg:top-24">
           <div className="flex items-baseline gap-3">
             <span className="display text-5xl leading-none text-black/12">{n}</span>
@@ -239,8 +239,8 @@ function Chapter({ n, kicker, title, children }) {
           <h3 className="display mt-4 text-3xl text-appleink sm:text-4xl">{title}</h3>
         </div>
       </Reveal>
-      <Reveal delay={0.06}>
-        <div>{children}</div>
+      <Reveal delay={0.06} className="min-w-0">
+        <div className="min-w-0">{children}</div>
       </Reveal>
     </div>
   );
