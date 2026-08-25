@@ -2,7 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 import { useState, useRef } from 'react';
-import { Users, Sparkles, Play, Pause, Film, Eye, Images, Heart, MessageCircle, Send, MoreHorizontal, Music2, Instagram, TrendingUp, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Users, Sparkles, Play, Pause, Film, Eye, Images, Heart, MessageCircle, Send, MoreHorizontal, Music2, Instagram, TrendingUp, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
 import { useLang, pick } from '@/lib/i18n';
 import { team, compare, arsenal, influencers, reelAccount, instagram } from '@/lib/contentAssets';
 import Reveal from '@/components/Reveal';
@@ -192,7 +192,15 @@ function InstagramInsights({ lang }) {
             <p className="text-[11px] text-slate-400">{pick(instagram.period, lang)}</p>
           </div>
         </div>
-        <span className="rounded-full bg-slate-100 px-3 py-1 text-[11px] font-medium text-slate-500">@{reelAccount.collab}</span>
+        <a
+          href={reelAccount.profileUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-flex items-center gap-1 rounded-full bg-slate-100 px-3 py-1 text-[11px] font-medium text-slate-500 transition-colors hover:bg-slate-200 hover:text-slate-700"
+        >
+          @{reelAccount.handle}
+          <ExternalLink size={11} />
+        </a>
       </div>
 
       <div className="grid gap-6 p-6 lg:grid-cols-2">
