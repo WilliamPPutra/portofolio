@@ -33,14 +33,17 @@ function Hero({ lang }) {
   const headline = pick(about.headline, lang);
 
   return (
-    <section ref={ref} className="relative overflow-hidden bg-ink py-24 text-chalk sm:py-28 lg:min-h-[86svh] lg:py-0 lg:flex lg:items-center">
+    <section
+      ref={ref}
+      className="relative overflow-hidden bg-ink py-24 text-chalk sm:py-28 lg:flex lg:min-h-[100svh] lg:items-center lg:pb-10 lg:pt-24"
+    >
       <Ambient />
       <div className="shell grid w-full items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <motion.div style={{ y, opacity }}>
           <Reveal>
             <span className="eyebrow text-muted">{pick(about.eyebrow, lang)}</span>
           </Reveal>
-          <h1 className="display mt-5 text-[8.5vw] leading-[1.02] sm:text-4xl md:text-5xl lg:text-[3.4rem]">
+          <h1 className="display mt-5 text-[9vw] leading-[1.03] sm:text-[2.6rem] md:text-[3.2rem] lg:text-[4rem] xl:text-[4.35rem]">
             {headline.map((line, i) => (
               <Reveal as="span" key={i} delay={0.08 * i} className="block">
                 <span className={i === headline.length - 1 ? 'text-muted' : 'text-chalk'}>{line}</span>
