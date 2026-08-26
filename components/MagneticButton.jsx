@@ -1,12 +1,20 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
+// Anything that is not an in-app route gets a plain anchor, so mailto: and tel:
+// are handed straight to the OS instead of going through the router.
+const isExternal = (href) => typeof href === 'string' && /^(mailto:|tel:|https?:|#)/.test(href);
+
 /**
  * Magnetic hover button, the cursor gently pulls the button and its label.
- * Renders as a Next <Link> when `href` is given, otherwise a <button>.
+ * Renders as a Next <Link> when `href` is an in-app route, otherwise an <a>.
+ *
+ * The magnet only runs on devices with a real hovering pointer. On touch, a tap
+ * synthesises a mousemove, which used to slide the button out from under the
+ * finger and swallow the tap.
  */
 export default function MagneticButton({
   children,
@@ -19,10 +27,20 @@ export default function MagneticButton({
 }) {
   const ref = useRef(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
+  // Starts false so the server render and touch devices both get a still button.
+  const [magnetic, setMagnetic] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia('(hover: hover) and (pointer: fine)');
+    const sync = () => setMagnetic(mq.matches);
+    sync();
+    mq.addEventListener('change', sync);
+    return () => mq.removeEventListener('change', sync);
+  }, []);
 
   const handleMove = (e) => {
     const el = ref.current;
-    if (!el) return;
+    if (!el || !magnetic) return;
     const rect = el.getBoundingClientRect();
     const x = e.clientX - (rect.left + rect.width / 2);
     const y = e.clientY - (rect.top + rect.height / 2);
@@ -51,7 +69,7 @@ export default function MagneticButton({
     </motion.span>
   );
 
-  const shared = `group relative inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 will-change-transform ${variants[variant]} ${className}`;
+  const shared = `group relative inline-flex touch-manipulation items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-colors duration-300 will-change-transform ${variants[variant]} ${className}`;
 
   const motionProps = {
     ref,
@@ -64,9 +82,15 @@ export default function MagneticButton({
   if (href) {
     return (
       <motion.div {...motionProps} className="inline-block will-change-transform">
-        <Link href={href} className={shared} onClick={onClick} {...rest}>
-          {inner}
-        </Link>
+        {isExternal(href) ? (
+          <a href={href} className={shared} onClick={onClick} {...rest}>
+            {inner}
+          </a>
+        ) : (
+          <Link href={href} className={shared} onClick={onClick} {...rest}>
+            {inner}
+          </Link>
+        )}
       </motion.div>
     );
   }
