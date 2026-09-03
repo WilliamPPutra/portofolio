@@ -95,8 +95,13 @@ body {
   }
 }
 
+/* `backwards`, never `both`. A filling animation keeps applying transform and
+   opacity forever, which makes the element a backdrop root and leaves any
+   backdrop-filter inside it with nothing to sample. That silently killed the
+   blur on the nav bar. With `backwards` the element still starts hidden, then
+   drops the effect entirely once it has played. */
 .reveal-now {
-  animation: revealRise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: revealRise 0.8s cubic-bezier(0.16, 1, 0.3, 1) backwards;
   animation-delay: var(--reveal-delay, 0s);
 }
 
