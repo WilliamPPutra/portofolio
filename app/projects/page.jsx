@@ -14,6 +14,7 @@ import {
   ExternalLink,
   Check,
   Play,
+  Store,
 } from 'lucide-react';
 import { useLang, pick } from '@/lib/i18n';
 import { projects as P } from '@/lib/content';
@@ -29,6 +30,13 @@ const SCREEN_ICON = { LayoutDashboard, Boxes, Wallet, Globe };
 const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const DEMO_URL = `${base}/demo/commerce-os/index.html`;
 const GAME_URL = `${base}/games/kepulanganku/index.html`;
+
+// The address each storefront capture was taken from, shown in the frame.
+const STORE_URL = {
+  'store-home.webp': 'pusatkainkafan.com',
+  'store-product.webp': 'pusatkainkafan.com/products/paket-kafanku-premium',
+  'store-checkout.webp': 'pusatkainkafan.com/checkout/paket-kafanku-premium',
+};
 
 const t = (lang, en, id) => (lang === 'id' ? id : en);
 
@@ -46,6 +54,7 @@ const STARS = [
 export default function ProjectsPage() {
   const { lang } = useLang();
   const os = P.os;
+  const store = P.store;
 
   return (
     <>
@@ -168,6 +177,58 @@ export default function ProjectsPage() {
         </div>
       </section>
 
+      {/* Storefront: the customer-facing half of the same system */}
+      <section className="bg-ink text-chalk">
+        <div className="shell py-20 sm:py-28">
+          <div className="grid gap-10 lg:grid-cols-[1fr_1fr] lg:items-start lg:gap-16">
+            <div>
+              <Reveal>
+                <div className="flex items-center gap-3">
+                  <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-white/10 text-white">
+                    <Store size={20} strokeWidth={1.5} />
+                  </span>
+                  <div>
+                    <p className="eyebrow text-muted">{pick(store.eyebrow, lang)}</p>
+                    <h3 className="display text-3xl text-white sm:text-4xl">{pick(store.name, lang)}</h3>
+                  </div>
+                </div>
+              </Reveal>
+              <Reveal delay={0.05}>
+                <p className="mt-6 max-w-xl text-lg leading-relaxed text-chalk-dim">{pick(store.tagline, lang)}</p>
+              </Reveal>
+            </div>
+
+            <Reveal delay={0.08}>
+              <div>
+                <p className="text-base leading-relaxed text-chalk-dim">{pick(store.body, lang)}</p>
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {store.stack.map((s) => (
+                    <span key={s} className="rounded-full border border-white/12 bg-white/[0.06] px-3 py-1 text-xs text-chalk">{s}</span>
+                  ))}
+                </div>
+                <div className="mt-7 flex flex-wrap items-center gap-3">
+                  <a
+                    href={store.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-appleink transition-transform hover:scale-[1.03] active:scale-95"
+                  >
+                    <ExternalLink size={15} />
+                    {pick(store.cta, lang)}
+                  </a>
+                  <span className="text-[11px] text-muted">{pick(store.note, lang)}</span>
+                </div>
+              </div>
+            </Reveal>
+          </div>
+        </div>
+      </section>
+
+      {/* The three storefront screens */}
+      {P.store.shots.map((shot, i) => (
+        <StoreBand key={shot.img} shot={shot} index={i} lang={lang} />
+      ))}
+
       {/* Lead magnet */}
       <section className="bg-applegray">
         <div className="shell py-20 sm:py-28">
@@ -239,6 +300,51 @@ function CommerceBand({ screen, lang }) {
             <Frame flush>
               <View lang={lang} />
             </Frame>
+          </FixedScale>
+        </Reveal>
+      </div>
+    </div>
+  );
+}
+
+/* One storefront screen: real capture of the live site in a browser frame.
+   Bands alternate white and grey so the three read as a sequence. */
+function StoreBand({ shot, index, lang }) {
+  const grey = index % 2 === 1;
+  return (
+    <div className={`overflow-x-hidden ${grey ? 'bg-applegray' : 'bg-white'}`}>
+      <div className="shell py-20 sm:py-24">
+        <Reveal className="mx-auto max-w-2xl text-center">
+          <div className="flex flex-col items-center">
+            <span className="eyebrow text-applesub">{pick(shot.tag, lang)}</span>
+            <h3 className="display mt-4 text-3xl text-appleink sm:text-4xl md:text-5xl">{pick(shot.t, lang)}</h3>
+            <p className="mt-5 text-base leading-relaxed text-applesub sm:text-lg">{pick(shot.d, lang)}</p>
+          </div>
+        </Reveal>
+
+        <Reveal delay={0.1} className="mx-auto mt-14 max-w-5xl">
+          <FixedScale width={1040}>
+            <div className="overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
+              <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-100 px-4 py-2.5">
+                <div className="flex gap-1.5">
+                  <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
+                  <span className="h-3 w-3 rounded-full bg-[#febc2e]" />
+                  <span className="h-3 w-3 rounded-full bg-[#28c840]" />
+                </div>
+                <div className="mx-auto flex items-center gap-1.5 rounded-md bg-white px-3 py-1 text-[11px] text-slate-400 shadow-sm">
+                  {STORE_URL[shot.img]}
+                </div>
+              </div>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={`${base}/media/${shot.img}`}
+                alt={pick(shot.t, lang)}
+                width={1560}
+                height={1300}
+                loading="lazy"
+                className="block w-full"
+              />
+            </div>
           </FixedScale>
         </Reveal>
       </div>
