@@ -40,23 +40,23 @@ function Hero({ lang }) {
       <Ambient />
       <div className="shell grid w-full items-center gap-10 lg:grid-cols-[1.05fr_0.95fr] lg:gap-14">
         <motion.div style={{ y, opacity }}>
-          <Reveal>
+          <Reveal immediate>
             <span className="eyebrow text-muted">{pick(about.eyebrow, lang)}</span>
           </Reveal>
           <h1 className="display mt-5 text-[9vw] leading-[1.03] sm:text-[2.6rem] md:text-[3.2rem] lg:text-[4rem] xl:text-[4.35rem]">
             {headline.map((line, i) => (
-              <Reveal as="span" key={i} delay={0.08 * i} className="block">
+              <Reveal as="span" immediate key={i} delay={0.08 * i} className="block">
                 <span className={i === headline.length - 1 ? 'text-muted' : 'text-chalk'}>{line}</span>
               </Reveal>
             ))}
           </h1>
-          <Reveal delay={0.35}>
+          <Reveal immediate delay={0.35}>
             <p className="mt-6 max-w-lg text-base leading-relaxed text-chalk-dim">{pick(about.sub, lang)}</p>
           </Reveal>
         </motion.div>
 
         {/* Portrait placeholder */}
-        <Reveal delay={0.2}>
+        <Reveal immediate delay={0.2}>
           <div className="relative mx-auto w-full max-w-sm">
             <div className="group relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-white/10 bg-gradient-to-b from-white/[0.06] to-white/[0.01]">
               <Image

@@ -48,16 +48,16 @@ export function DetailHero({ icon, eyebrow, title, tagline, titleClass = '', log
         style={{ background: 'radial-gradient(60% 100% at 50% 0%, rgba(0,0,0,0.05), transparent)' }}
       />
       <div className="shell">
-        <Reveal>
+        <Reveal immediate>
           <BackToHub />
         </Reveal>
-        <Reveal delay={0.05}>
+        <Reveal immediate delay={0.05}>
           <div className="mt-8">
             <SectionKicker icon={icon} eyebrow={eyebrow} />
           </div>
         </Reveal>
         {logo && (
-          <Reveal delay={0.08}>
+          <Reveal immediate delay={0.08}>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={logo}
@@ -66,13 +66,13 @@ export function DetailHero({ icon, eyebrow, title, tagline, titleClass = '', log
             />
           </Reveal>
         )}
-        <Reveal delay={0.1}>
+        <Reveal immediate delay={0.1}>
           <h1 className={`display mt-6 text-appleink ${titleClass || 'text-5xl sm:text-6xl md:text-7xl'}`}>
             {title}
           </h1>
         </Reveal>
         {tagline && (
-          <Reveal delay={0.15}>
+          <Reveal immediate delay={0.15}>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-applesub sm:text-xl">{tagline}</p>
           </Reveal>
         )}

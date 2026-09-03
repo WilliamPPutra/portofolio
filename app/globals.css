@@ -80,9 +80,34 @@ body {
   }
 }
 
+/* Entrance for anything above the fold.
+   Framer only runs once React has hydrated, which left the hero blank for as
+   long as the bundle took to arrive. This is pure CSS, so it starts at the
+   first paint and finishes even if the JavaScript never loads at all. */
+@keyframes revealRise {
+  from {
+    opacity: 0;
+    transform: translateY(var(--reveal-y, 24px));
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.reveal-now {
+  animation: revealRise 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--reveal-delay, 0s);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+  .reveal-now {
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
   *,
   *::before,

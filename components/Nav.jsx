@@ -34,11 +34,11 @@ export default function Nav() {
 
   return (
     <>
-      <motion.header
-        initial={{ y: -80, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-        className="fixed inset-x-0 top-0 z-50"
+      {/* Drops in with CSS, not Framer. The bar is the first thing on screen,
+          so it must not wait for hydration to become visible. */}
+      <header
+        className="reveal-now fixed inset-x-0 top-0 z-50"
+        style={{ '--reveal-y': '-80px' }}
       >
         <div
           className={`border-b transition-all duration-500 ${
@@ -131,7 +131,7 @@ export default function Nav() {
             </div>
           </nav>
         </div>
-      </motion.header>
+      </header>
 
       {/* Mobile sheet */}
       <AnimatePresence>
