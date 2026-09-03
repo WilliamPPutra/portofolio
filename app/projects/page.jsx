@@ -30,12 +30,20 @@ const SCREEN_ICON = { LayoutDashboard, Boxes, Wallet, Globe };
 const base = process.env.NEXT_PUBLIC_BASE_PATH || '';
 const DEMO_URL = `${base}/demo/commerce-os/index.html`;
 const GAME_URL = `${base}/games/kepulanganku/index.html`;
+const STORE_DEMO_URL = `${base}/demo/store/index.html`;
 
 // The address each storefront capture was taken from, shown in the frame.
 const STORE_URL = {
   'store-home.webp': 'pusatkainkafan.com',
   'store-product.webp': 'pusatkainkafan.com/products/paket-kafanku-premium',
   'store-checkout.webp': 'pusatkainkafan.com/checkout/paket-kafanku-premium',
+};
+
+// The same screen inside the self-hosted demo, so each shot is clickable.
+const STORE_DEMO_HASH = {
+  'store-home.webp': '#/',
+  'store-product.webp': '#/products/paket-kafanku-premium',
+  'store-checkout.webp': '#/checkout/paket-kafanku-premium',
 };
 
 const t = (lang, en, id) => (lang === 'id' ? id : en);
@@ -208,16 +216,24 @@ export default function ProjectsPage() {
                 </div>
                 <div className="mt-7 flex flex-wrap items-center gap-3">
                   <a
-                    href={store.href}
+                    href={STORE_DEMO_URL}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-medium text-appleink transition-transform hover:scale-[1.03] active:scale-95"
                   >
                     <ExternalLink size={15} />
+                    {pick(store.demoCta, lang)}
+                  </a>
+                  <a
+                    href={store.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-medium text-chalk transition-colors hover:border-white/50"
+                  >
                     {pick(store.cta, lang)}
                   </a>
-                  <span className="text-[11px] text-muted">{pick(store.note, lang)}</span>
                 </div>
+                <p className="mt-4 max-w-md text-[11px] leading-relaxed text-muted">{pick(store.note, lang)}</p>
               </div>
             </Reveal>
           </div>
@@ -324,7 +340,12 @@ function StoreBand({ shot, index, lang }) {
 
         <Reveal delay={0.1} className="mx-auto mt-14 max-w-5xl">
           <FixedScale width={1040}>
-            <div className="overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] ring-1 ring-black/5">
+            <a
+              href={`${STORE_DEMO_URL}${STORE_DEMO_HASH[shot.img] ?? '#/'}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group block overflow-hidden rounded-2xl border border-black/[0.08] bg-white shadow-[0_30px_60px_-25px_rgba(0,0,0,0.35)] ring-1 ring-black/5"
+            >
               <div className="flex items-center gap-2 border-b border-slate-200 bg-slate-100 px-4 py-2.5">
                 <div className="flex gap-1.5">
                   <span className="h-3 w-3 rounded-full bg-[#ff5f57]" />
@@ -335,16 +356,24 @@ function StoreBand({ shot, index, lang }) {
                   {STORE_URL[shot.img]}
                 </div>
               </div>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={`${base}/media/${shot.img}`}
-                alt={pick(shot.t, lang)}
-                width={1560}
-                height={1300}
-                loading="lazy"
-                className="block w-full"
-              />
-            </div>
+              <div className="relative">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={`${base}/media/${shot.img}`}
+                  alt={pick(shot.t, lang)}
+                  width={1560}
+                  height={1300}
+                  loading="lazy"
+                  className="block w-full"
+                />
+                <span className="absolute inset-0 flex items-center justify-center bg-appleink/0 opacity-0 transition-all duration-500 group-hover:bg-appleink/45 group-hover:opacity-100">
+                  <span className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3.5 text-base font-medium text-appleink">
+                    <ExternalLink size={18} />
+                    {t(lang, 'Open this screen in the demo', 'Buka layar ini di demo')}
+                  </span>
+                </span>
+              </div>
+            </a>
           </FixedScale>
         </Reveal>
       </div>
